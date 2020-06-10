@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name_">Edu-Class</string>
+
+    <string name="text_template_header">Ini Judul Headernya</string>
+    <string name="text_template_title">Ini Judulnya</string>
+    <string name="text_template_title_right">Ini Judul Kanannya</string>
+    <string name="text_template_title_sub">Ini Sub Judulnya</string>
+    <string name="text_template_desc">Ini isinya</string>
+    <string name="text_template_desc_right">Ini isi kanannya</string>
+    <string name="text_template_button_action">Logout</string>
+    <string name="text_template_fill">Isian ini kosong</string>
+    <string name="text_template_profile_name">Ini namanya</string>
+    <string name="text_template_profile_content">Ini penjelesannya</string>
+    <string name="text_template_message_overlay">Ini pesan peringatan overlay</string>
+</resources>

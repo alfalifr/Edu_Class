@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#325DD6</color>
+    <color name="colorPrimaryDark">#061ECF</color>
+    <color name="colorAccent">#44CBFC</color>
+
+
+    <color name="primaryDarkTrans">#70061ECF</color>
+    <color name="primaryDarkTranser">#50061ECF</color>
+    <color name="primaryTrans">#70325DD6</color>
+    <color name="accentTrans">#AA44CBFC</color>
+    <color name="accentTranser">#5044CBFC</color>
+
+    <color name="transparent">#00000000</color>
+    <color name="black">#000000</color>
+    <color name="black_trans">#70000000</color>
+    <color name="blacker_trans">#AA000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="grey_icon">#555555</color>
+    <color name="grey_txt">#919191</color>
+    <color name="grey_to_white">#DADADA</color>
+    <color name="grey_bg">#EFEFEF</color>
+    <color name="grey_trans">#22000000</color>
+</resources>

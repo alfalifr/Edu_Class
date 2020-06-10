@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/rl_pict_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <!--
+        Bg from Freepik
+        -->
+        <ImageView
+            android:id="@+id/iv_bg"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:background="@color/colorAccent"
+            android:src="@drawable/bg_home"
+            android:scaleType="centerCrop"/>
+
+        <View
+            android:id="@+id/border_pp_length"
+            android:layout_below="@id/iv_bg"
+            android:layout_width="0dp"
+            android:layout_height="40dp"/>
+        <View
+            android:id="@+id/border_pp"
+            android:layout_below="@id/border_pp_length"
+            android:layout_width="0dp"
+            android:layout_height="0dp"/>
+        <ImageView
+            android:layout_centerHorizontal="true"
+            android:layout_above="@id/border_pp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_profile"/>
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:id="@+id/rl_info_container"
+        android:layout_below="@id/rl_pict_container"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <include
+            android:id="@+id/comp_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            layout="@layout/comp_fill_text_underline"/>
+        <include
+            android:id="@+id/comp_nrp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            layout="@layout/comp_fill_text_underline"/>
+        <include
+            android:id="@+id/comp_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            layout="@layout/comp_fill_text_underline"/>
+    </LinearLayout>
+
+</RelativeLayout>

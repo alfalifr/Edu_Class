@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+    <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_template_title"
+            android:textSize="@dimen/txt_list_title"
+            android:textColor="@color/black"/>
+
+    <RelativeLayout
+            android:layout_below="@id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        <ImageView
+                android:visibility="gone"
+                android:id="@+id/iv_action"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:layout_width="@dimen/pict_txt_fil_action"
+                android:layout_height="@dimen/pict_txt_fil_action"
+                android:tint="@color/grey_icon"
+                android:src="@color/grey_icon"/>
+        <EditText
+                android:id="@+id/ed_fill"
+                android:layout_toLeftOf="@id/iv_action"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:paddingTop="@dimen/txt_list_fill_vertical"
+                android:paddingBottom="@dimen/txt_list_fill_vertical_line"
+                android:paddingLeft="@dimen/txt_list_fill_horizontal"
+                android:paddingRight="@dimen/txt_list_fill_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="5"
+                android:singleLine="false"
+                android:textCursorDrawable="@drawable/shape_cursor"
+                android:hint="@string/text_template_fill"
+                android:textSize="@dimen/txt_list_desc"/>
+        <ImageView
+                android:id="@+id/iv_show_password"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginRight="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_eye_yes"/>
+    </RelativeLayout>
+
+</RelativeLayout>

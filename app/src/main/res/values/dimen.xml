@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="container_tile_menu">100dp</dimen>
+
+    <dimen name="txt_header_intro">30sp</dimen>
+    <dimen name="txt_header">20sp</dimen>
+    <dimen name="txt_highlight">23sp</dimen>
+    <dimen name="txt_tile_menu_container">100dp</dimen>
+    <dimen name="txt_tile_title">15sp</dimen>
+    <dimen name="txt_tile_desc">14sp</dimen>
+    <dimen name="txt_list_title">15sp</dimen>
+    <dimen name="txt_list_desc">14sp</dimen>
+    <dimen name="txt_list_fill_vertical">8sp</dimen>
+    <dimen name="txt_list_fill_vertical_line">12sp</dimen>
+    <dimen name="txt_list_fill_horizontal">10sp</dimen>
+    <dimen name="txt_list_fill_vertical_border">12sp</dimen>
+    <dimen name="txt_list_fill_horizontal_border">12sp</dimen>
+
+    <dimen name="pict_tile_list">150dp</dimen>
+    <dimen name="pict_tile_menu">50dp</dimen>
+    <dimen name="pict_indicator_side_txt">20dp</dimen>
+    <dimen name="pict_txt_fil_action">30dp</dimen>
+    <dimen name="pict_txt_fil_action_border">20dp</dimen>
+    <dimen name="pict_txt_fil_action_border_all">40dp</dimen>
+    <dimen name="drawable_border">10dp</dimen>
+    <dimen name="drawable_border_btn">3dp</dimen>
+    <dimen name="drawable_border_txt_fill">1dp</dimen>
+
+    <dimen name="card_radius_sm">10dp</dimen>
+    <dimen name="card_radius_med">15dp</dimen>
+    <dimen name="card_radius">20dp</dimen>
+
+    <dimen name="fill_block_alpha">0.4</dimen>
+
+    <dimen name="profile_pict">70dp</dimen>
+    <dimen name="profile_pict_big">90dp</dimen>
+    <dimen name="profile_pict_corner">70dp</dimen>
+    <dimen name="profile_pict_corner_big">100dp</dimen>
+    <dimen name="profile_pict_indicator_big">30dp</dimen>
+    <dimen name="profile_text_name">20sp</dimen>
+    <dimen name="profile_text_name_big">23sp</dimen>
+    <dimen name="profile_text_content">18sp</dimen>
+    <dimen name="profile_text_content_big">21sp</dimen>
+
+</resources>
