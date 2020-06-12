@@ -14,6 +14,7 @@
             android:textColor="@color/black"/>
 
     <RelativeLayout
+            android:id="@+id/rl_fill_container"
             android:layout_below="@id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -53,5 +54,16 @@
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_eye_yes"/>
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_note"
+        android:visibility="gone"
+        android:layout_below="@id/rl_fill_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="@string/text_template_title"
+        android:textSize="@dimen/txt_sm"
+        android:textColor="@color/merah"/>
 
 </RelativeLayout>

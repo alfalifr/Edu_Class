@@ -11,13 +11,18 @@
         android:name="sidev.kuliah.tekber.edu_class.app.App"
         android:theme="@style/AppTheme">
         <activity android:name="sidev.kuliah.tekber.edu_class.act.SimpleSingleFragActImpl" />
-        <activity android:name="sidev.kuliah.tekber.edu_class.MainActivity">
+
+        <activity android:name="sidev.kuliah.tekber.edu_class.act.LoginAct" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name="sidev.kuliah.tekber.edu_class.MainActivity">
+        </activity>
+
     </application>
 
 </manifest>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/main_home"
+        android:title="Beranda"
+        android:icon="@drawable/ic_home"/>
+    <item
+        android:id="@+id/main_class"
+        android:title="Kelas"
+        android:icon="@drawable/ic_graduate"/>
+    <item
+        android:id="@+id/main_notif"
+        android:title="Pengumuman"
+        android:icon="@drawable/ic_bell"/>
+    <item
+        android:id="@+id/main_presence"
+        android:title="Presensi"
+        android:icon="@drawable/ic_warning"/>
+</menu>
