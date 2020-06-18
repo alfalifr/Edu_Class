@@ -21,7 +21,7 @@ class ModuleAdp(c: Context, data: ArrayList<Module>?) : RvAdp<Module, LinearLayo
         setTvDescTxt(vh.itemView, data.desc)
         _ViewUtil.Comp.getIv?.invoke(vh.itemView)
             .notNull { iv -> ViewUtil.setImg(iv, data.img) }
-        vh.itemView.tv_time.text= "Minggu ${data.duration.start} - ${data.duration.end}"
+        vh.itemView.tv_time.text= "Minggu ${data.duration}"
 
         vh.itemView.cv_main_container.setOnClickListener {
             onItemClickListener?.onClickItem(it, pos, data)

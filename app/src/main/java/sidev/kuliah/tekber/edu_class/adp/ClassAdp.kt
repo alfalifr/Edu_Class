@@ -25,6 +25,6 @@ class ClassAdp(c: Context, data: ArrayList<ClassModel>?) : RvAdp<ClassModel, Gri
     }
 
     override fun setupLayoutManager(): GridLayoutManager {
-        return GridLayoutManager(ctx, 4)
+        return GridLayoutManager(ctx, 2)
     }
 }

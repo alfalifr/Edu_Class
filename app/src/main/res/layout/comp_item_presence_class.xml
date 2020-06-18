@@ -3,13 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="10dp">
+    android:padding="5dp">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="@dimen/card_radius"
-        android:background="@color/accentTrans">
+        android:background="@color/accentTrans"
+        android:layout_margin="7dp">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -35,7 +36,8 @@
                     android:layout_marginTop="15dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"/>
+                    android:orientation="vertical"
+                    android:nestedScrollingEnabled="false"/>
 
                 <LinearLayout
                     android:id="@+id/ll_lecturer_container"
@@ -53,6 +55,7 @@
                         android:textSize="@dimen/txt_normal_sm"
                         android:textStyle="bold"/>
                     <TextView
+                        android:id="@+id/tv_teacher"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"

@@ -2,14 +2,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="10dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
         android:id="@+id/tv_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Week 7 - 10"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
         android:textSize="@dimen/txt_med_normal"
         android:textColor="@color/colorAccent"/>
 
@@ -18,7 +19,8 @@
         android:layout_below="@id/tv_time"
         android:layout_width="match_parent"
         android:layout_height="170dp"
-        app:cardCornerRadius="@dimen/card_radius">
+        app:cardCornerRadius="@dimen/card_radius"
+        android:layout_margin="10dp">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">

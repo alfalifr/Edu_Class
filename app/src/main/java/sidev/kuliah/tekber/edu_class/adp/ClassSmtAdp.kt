@@ -9,6 +9,8 @@ import sidev.kuliah.tekber.edu_class.model.ClassModel
 import sidev.kuliah.tekber.edu_class.model.SemesterClass
 import sidev.lib.android.siframe.adapter.RvAdp
 import sidev.lib.android.siframe.tool.util._ViewUtil
+import sidev.lib.android.siframe.tool.util.`fun`.loge
+import sidev.lib.universal.`fun`.isNull
 import sidev.lib.universal.`fun`.notNull
 import java.lang.IndexOutOfBoundsException
 
@@ -17,16 +19,20 @@ class ClassSmtAdp(c: Context, data: ArrayList<SemesterClass>?)
     override val itemLayoutId: Int
         get() = R.layout.comp_item_class_container
 
+    var onClassItemClickListener: ((smt: Int, cls: ClassModel, pos: Int) -> Unit)?= null
     var clazzAdp= ArrayList<ClassAdp>()
 
     override fun bindVH(vh: SimpleViewHolder, pos: Int, data: SemesterClass) {
+//        loge("bindVH() AWAL")
         _ViewUtil.Comp.getTv?.invoke(vh.itemView)
             .notNull { tv -> tv.text= "Semester ${data.semester}" }
         try{ clazzAdp[pos] }
         catch (e: IndexOutOfBoundsException){
+//            loge("bindVH() CATCH AWAL")
             _ViewUtil.Comp.getRv?.invoke(vh.itemView)
                 .notNull { rv ->
-                    var isRvVisible= false
+//                    loge("bindVH() RV NOT NULL")
+                    var isRvVisible= true
                     vh.itemView.comp_header.setOnClickListener {
                         isRvVisible= !isRvVisible
                         rv.visibility= if(isRvVisible) View.VISIBLE
@@ -38,9 +44,13 @@ class ClassSmtAdp(c: Context, data: ArrayList<SemesterClass>?)
                         clzData.add(clz)
                     }
                     val clzAdp= ClassAdp(ctx, clzData)
+                    clzAdp.setOnItemClickListener { v, pos, dataCls ->
+                        onClassItemClickListener?.invoke(data.semester, dataCls, pos)
+                    }
                     clazzAdp.add(clzAdp)
                     clzAdp.rv= rv
-                }
+                    loge("bindVH() Yah NULL...")
+                }. isNull { loge("bindVH() Yah NULL...") }
         }
     }
 

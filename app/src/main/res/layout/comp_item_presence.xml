@@ -3,13 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="10dp">
+    android:padding="3dp">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="@dimen/card_radius"
-        android:background="@color/accentTrans">
+        android:background="@color/accentTrans"
+        android:layout_margin="10dp">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -23,7 +24,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Week 7"
-                    android:textSize="@dimen/txt_med"
+                    android:textSize="@dimen/txt_med_normal"
                     android:textColor="@color/black"
                     android:textStyle="bold"/>
                 <TextView
@@ -34,7 +35,8 @@
                     android:layout_height="wrap_content"
                     android:text="Hadir"
                     android:textSize="@dimen/txt_normal"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/black"
+                    android:textStyle="bold"/>
             </RelativeLayout>
 
             <LinearLayout
@@ -52,7 +54,7 @@
                     app:cardCornerRadius="@dimen/card_radius"
                     android:layout_marginRight="20dp"
                     android:layout_weight="1"
-                    android:background="@color/ijoBiruMuda">
+                    android:backgroundTint="@color/ijoBiruMuda">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -60,16 +62,17 @@
                         android:padding="10dp">
                         <ImageView
                             android:layout_gravity="center"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:src="@drawable/ic_profile"/>
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:src="@drawable/ic_profile"
+                            android:tint="@color/white"/>
                         <TextView
                             android:layout_gravity="center"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Hadir"
-                            android:textSize="@dimen/txt_normal"
-                            android:textColor="@color/black"/>
+                            android:textSize="@dimen/txt_normal_sm"
+                            android:textColor="@color/white"/>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -79,7 +82,7 @@
                     android:layout_height="wrap_content"
                     app:cardCornerRadius="@dimen/card_radius"
                     android:layout_weight="1"
-                    android:background="@color/biruLangit">
+                    android:backgroundTint="@color/biruLangit">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -87,16 +90,17 @@
                         android:padding="10dp">
                         <ImageView
                             android:layout_gravity="center"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:src="@drawable/ic_profile"/>
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:src="@drawable/ic_profile"
+                            android:tint="@color/white"/>
                         <TextView
                             android:layout_gravity="center"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Berita acara"
-                            android:textSize="@dimen/txt_normal"
-                            android:textColor="@color/black"/>
+                            android:textSize="@dimen/txt_normal_sm"
+                            android:textColor="@color/white"/>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -107,7 +111,7 @@
                     app:cardCornerRadius="@dimen/card_radius"
                     android:layout_marginLeft="20dp"
                     android:layout_weight="1"
-                    android:background="@color/merah">
+                    android:backgroundTint="@color/merah">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -115,16 +119,17 @@
                         android:padding="10dp">
                         <ImageView
                             android:layout_gravity="center"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:src="@drawable/ic_profile"/>
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:src="@drawable/ic_profile"
+                            android:tint="@color/white"/>
                         <TextView
                             android:layout_gravity="center"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Ijin"
-                            android:textSize="@dimen/txt_normal"
-                            android:textColor="@color/black"/>
+                            android:textSize="@dimen/txt_normal_sm"
+                            android:textColor="@color/white"/>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 

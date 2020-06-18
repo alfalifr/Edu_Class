@@ -15,7 +15,18 @@
             android:layout_height="match_parent"
             android:padding="10dp">
             <TextView
-                android:id="@+id/tv_msg"
+                android:id="@+id/tv_title"
+                android:layout_marginBottom="1dp"
+                android:layout_marginLeft="3dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/text_template_title"
+                android:textSize="@dimen/txt_sm"
+                android:textStyle="bold"
+                android:textColor="@color/grey_icon" />
+            <TextView
+                android:id="@+id/tv_desc"
+                android:layout_below="@id/tv_title"
                 android:layout_margin="3dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -24,13 +35,13 @@
                 android:textColor="@color/grey_icon" />
             <View
                 android:id="@+id/border"
-                android:layout_below="@id/tv_msg"
-                android:layout_toRightOf="@id/tv_msg"
+                android:layout_below="@id/tv_desc"
+                android:layout_toRightOf="@id/tv_desc"
                 android:layout_width="0dp"
                 android:layout_height="0dp"/>
             <TextView
                 android:id="@+id/tv_time"
-                android:layout_below="@id/tv_msg"
+                android:layout_below="@id/tv_desc"
                 android:layout_toLeftOf="@id/border"
                 android:layout_margin="3dp"
                 android:layout_width="wrap_content"

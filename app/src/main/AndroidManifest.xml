@@ -11,6 +11,7 @@
         android:name="sidev.kuliah.tekber.edu_class.app.App"
         android:theme="@style/AppTheme">
         <activity android:name="sidev.kuliah.tekber.edu_class.act.SimpleSingleFragActImpl" />
+        <activity android:name=".act.ContentAct" />
 
         <activity android:name="sidev.kuliah.tekber.edu_class.act.LoginAct" >
             <intent-filter>
