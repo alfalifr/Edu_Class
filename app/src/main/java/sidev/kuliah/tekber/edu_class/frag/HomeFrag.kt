@@ -47,15 +47,21 @@ class HomeFrag : SimpleActBarFrag(){
         enableEd(comp_nrp, false)
         enableEd(comp_email, false)
 
-        downloadData(Const.REQ_GET_PROFILE)
-        showPb(true)
+        layoutView.srl.setOnRefreshListener { downloadData() }
+        downloadData()
     }
 
     fun showPb(show: Boolean= true){
-        layoutView.pb.visibility= if(show) View.VISIBLE
+        layoutView.rl_pb_container.visibility= if(show) View.VISIBLE
             else View.GONE
-        layoutView.rl_info_container.visibility= if(show) View.GONE
-            else View.VISIBLE
+        layoutView.ll_fill_container.visibility= if(!show) View.VISIBLE
+            else View.GONE
+        layoutView.srl.isRefreshing= show
+    }
+
+    fun downloadData(){
+        downloadData(Const.REQ_GET_PROFILE)
+        showPb(true)
     }
 
     fun updateProfile(profil: Profil){

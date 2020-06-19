@@ -62,9 +62,7 @@ class ContentFrag : RvFrag<ContentAdp>(), TopMiddleBottomBase{
 
     override fun _initView(layoutView: View) {
         __initTopMiddleBottomView(layoutView)
-        onRefreshListener= {
-            downloadContent(pageId)
-        }
+        onRefreshListener= { downloadContent(pageId) }
         downloadContent(pageId)
 //        downloadPageList()
     }

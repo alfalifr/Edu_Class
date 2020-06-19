@@ -35,6 +35,8 @@ class PresenceNewsDialog(c: Context) : DialogAbsView<PresenceNewsDialog>(c){
 
         setBtnHollow(layoutView.btn_left as Button)
         setBtnSolid(layoutView.btn_right as Button)
+
+        setTitle("Berita acara")
     }
 
     fun showPb(show: Boolean= true){

@@ -5,6 +5,7 @@ import sidev.kuliah.tekber.edu_class.model.PresenceClass
 import sidev.kuliah.tekber.edu_class.util.Const
 import sidev.lib.android.siframe.presenter.Presenter
 import sidev.lib.android.siframe.presenter.PresenterCallback
+import sidev.lib.android.siframe.tool.util._StorageUtil
 import sidev.lib.android.siframe.tool.util.`fun`.firstId
 import sidev.lib.android.siframe.tool.util.`fun`.toObjList
 import sidev.lib.universal.`fun`.notNull
@@ -30,6 +31,16 @@ class PresencePres(c: PresenterCallback) : Presenter(c){
                 val classId= data!![Const.DATA_CLASS_ID] as String
                 getPresenceDetail(classId)
             }
+            Const.REQ_SEND_PRESENCE_CODE -> {
+                val presenceCode= data!![Const.DATA_PRESENCE_CODE] as String
+                val uname= _StorageUtil.SharedPref.getSharedPref(ctx!!, Const.DATA_UNAME)!!
+                savePresenceCode(uname, presenceCode)
+            }
+            Const.REQ_SEND_PRESENCE_NEWS -> {
+                val presenceNews= data!![Const.DATA_PRESENCE_NEWS] as String
+                val uname= _StorageUtil.SharedPref.getSharedPref(ctx!!, Const.DATA_UNAME)!!
+                savePresenceNews(uname, presenceNews)
+            }
 //            Const.REQ_GET_PRESENCE_TIME_NOW -> getTimeNow()
 //            Const.REQ_GET_PRESENCE_UPCOMING_CLASS -> getUpcomingClass()
         }
@@ -53,13 +64,25 @@ class PresencePres(c: PresenterCallback) : Presenter(c){
     fun getUpcomingClass(){}
 
     fun getPresenceDetail(classId: String){
-        ThreadUtil.delayRun(300){
+        ThreadUtil.delayRun(3000){
             dumm_presence_class.search { presenceClass ->
                 presenceClass.clazz.firstId() == classId
             }.notNull { presenceClass ->
                 val presenceList= presenceClass.presenceList.toObjList()!!
                 postSucc(Const.RES_OK, mapOf(Const.DATA_PRESENCE to presenceList))
             }
+        }
+    }
+
+    fun savePresenceCode(uname: String, presenceCode: String){
+        ThreadUtil.delayRun(3000){
+            postSucc(Const.RES_OK, null)
+        }
+    }
+
+    fun savePresenceNews(uname: String, news: String){
+        ThreadUtil.delayRun(3000){
+            postSucc(Const.RES_OK, null)
         }
     }
 }

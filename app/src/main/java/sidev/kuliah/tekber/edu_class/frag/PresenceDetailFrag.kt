@@ -116,6 +116,7 @@ class PresenceDetailFrag : SimpleAbsFrag(){
         else View.GONE
         layoutView.findViewById<View>(R.id.rl_main_container)?.visibility= if(!show) View.VISIBLE
         else View.GONE
+        layoutView.srl.isRefreshing= show
     }
 
     fun downloadData(){
@@ -133,8 +134,8 @@ class PresenceDetailFrag : SimpleAbsFrag(){
 
     fun updateHeaderInfo(presenceCls: PresenceClass){
         this.presenceCls= presenceCls
-        layoutView.comp_header_class
         classScheduleAdp.dataList= presenceCls.scheduleList.toObjList()
+        layoutView.comp_header_class.tv_class.text= presenceCls.clazz.firstObj()!!.name
         layoutView.tv_teacher.text= presenceCls.clazz.firstObj()!!.teacher
 
         layoutView.tv_present_count.text= presenceCls.presentCount.toString()
@@ -154,6 +155,7 @@ class PresenceDetailFrag : SimpleAbsFrag(){
             Const.REQ_SEND_PRESENCE_CODE -> {
                 if(resCode == Const.RES_OK){
                     dialogEnterCode.showPb(false)
+                    dialogEnterCode.cancel()
                     presenceBeingChanged?.status= Const.STATUS_PRESENCE_PRESENT
                     presenceAdp.notifyDataSetChanged_()
                     toast("Absensi berhasil")

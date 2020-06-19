@@ -3,7 +3,7 @@ package sidev.kuliah.tekber.edu_class
 import android.view.View
 import sidev.kuliah.tekber.edu_class.frag.ClassFrag
 import sidev.kuliah.tekber.edu_class.frag.HomeFrag
-import sidev.kuliah.tekber.edu_class.frag.NewsFrag
+import sidev.kuliah.tekber.edu_class.frag.NotifListFrag
 import sidev.kuliah.tekber.edu_class.frag.PresenceClassListFrag
 import sidev.lib.android.siframe.lifecycle.activity.SimpleAbsBarContentNavAct_ViewPager
 import sidev.lib.android.siframe.lifecycle.fragment.SimpleAbsFrag
@@ -17,7 +17,7 @@ class MainActivity : SimpleAbsBarContentNavAct_ViewPager<SimpleAbsFrag>() {
         arrayOf(
             HomeFrag(),
             ClassFrag(),
-            NewsFrag(),
+            NotifListFrag(),
             PresenceClassListFrag()
         )
     override var vpFragListStartMark: Array<Int> =

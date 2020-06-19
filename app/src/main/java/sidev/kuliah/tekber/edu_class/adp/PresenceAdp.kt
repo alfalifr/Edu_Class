@@ -46,6 +46,8 @@ class PresenceAdp(c: Context, data: ArrayList<Presence_>?)
         else View.GONE
         v.cv_excuse_container.visibility= if(canChangeStatus) View.VISIBLE
         else View.GONE
+        v.cv_news_container.visibility= if(!canChangeStatus) View.VISIBLE
+        else View.GONE
 
         v.cv_present_container.setOnClickListener {
             onStatusChangeListener?.invoke(data, Const.STATUS_PRESENCE_PRESENT, pos)

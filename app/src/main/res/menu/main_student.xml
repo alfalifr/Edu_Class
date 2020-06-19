@@ -10,7 +10,7 @@
         android:icon="@drawable/ic_graduate"/>
     <item
         android:id="@+id/main_notif"
-        android:title="Pengumuman"
+        android:title="Notifikasi"
         android:icon="@drawable/ic_bell"/>
     <item
         android:id="@+id/main_presence"

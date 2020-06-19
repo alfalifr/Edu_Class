@@ -35,6 +35,8 @@ class EnterPresenceCodeDialog(c: Context) : DialogAbsView<EnterPresenceCodeDialo
 
         setBtnHollow(layoutView.btn_left as Button)
         setBtnSolid(layoutView.btn_right as Button)
+
+        setTitle("Masukan kode presensi")
     }
 
     fun showPb(show: Boolean= true){

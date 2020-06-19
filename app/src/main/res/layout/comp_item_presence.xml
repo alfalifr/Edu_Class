@@ -48,13 +48,13 @@
                 android:orientation="horizontal">
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/cv_present_container"
+                    android:id="@+id/cv_excuse_container"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:cardCornerRadius="@dimen/card_radius"
-                    android:layout_marginRight="20dp"
                     android:layout_weight="1"
-                    android:backgroundTint="@color/ijoBiruMuda">
+                    android:layout_marginRight="20dp"
+                    android:backgroundTint="@color/merah">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -70,7 +70,7 @@
                             android:layout_gravity="center"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Hadir"
+                            android:text="Ijin"
                             android:textSize="@dimen/txt_normal_sm"
                             android:textColor="@color/white"/>
                     </LinearLayout>
@@ -105,13 +105,13 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/cv_excuse_container"
+                    android:id="@+id/cv_present_container"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:cardCornerRadius="@dimen/card_radius"
                     android:layout_marginLeft="20dp"
                     android:layout_weight="1"
-                    android:backgroundTint="@color/merah">
+                    android:backgroundTint="@color/ijoBiruMuda">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -127,7 +127,7 @@
                             android:layout_gravity="center"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Ijin"
+                            android:text="Hadir"
                             android:textSize="@dimen/txt_normal_sm"
                             android:textColor="@color/white"/>
                     </LinearLayout>

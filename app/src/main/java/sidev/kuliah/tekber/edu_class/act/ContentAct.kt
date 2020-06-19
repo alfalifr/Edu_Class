@@ -40,7 +40,7 @@ class ContentAct : DrawerBarContentNavAct_ViewPager<ContentFrag>(){
 
     override var vpFragList: Array<ContentFrag> = arrayOf()
     override var vpFragListStartMark: Array<Int> = arrayOf()
-    override var vpBackOnBackPressed: Boolean= false
+    override var isVpBackOnBackPressed: Boolean= false
     /*
     override var bottomContainer: View?= null
     override var middleContainer: View?= null

@@ -1,11 +1,8 @@
 package sidev.kuliah.tekber.edu_class._cob
 
-import android.provider.ContactsContract
-import sidev.kuliah.tekber.edu_class.intfc.Content
 import sidev.kuliah.tekber.edu_class.model.*
 import sidev.kuliah.tekber.edu_class.util.Const
 import sidev.lib.android.siframe.tool.util.`fun`.fkmFrom
-import sidev.lib.android.siframe.tool.util.`fun`.fkmOf
 
 val dumm_profile= arrayOf(
     Profil("1", "stud1", "Barjo Ko", "08123321456", "barjo@mail.com"),
@@ -100,4 +97,15 @@ val dumm_presence_class= arrayOf(
 
 val dumm_presence_class_smt= arrayOf(
     PresenceClassSmt("1", "6", fkmFrom(*dumm_presence_class))
+)
+
+val dumm_news= arrayOf(
+    Notif("1", null, "Tugas baru Analisis Sains", "2020-06-18 10:01:00"),
+    Notif("2", null, "DL tugas 2 Analisis Sains", "2020-06-18 11:01:00"),
+    Notif("3", null, "Tugas baru Analisis Ekonom", "2020-06-18 12:01:00"),
+    Notif("4", null, "Tugas baru Analisis Sains!", "2020-06-18 12:10:00"),
+    Notif("5", "AS Pindah kelas", "Pindah ke gedung A", "2020-06-18 12:11:10"),
+    Notif("6", "Kuis mendadak", "Besok AS ada kuis", "2020-06-18 13:01:00"),
+    Notif("7", null, "Tugas baru Analisis Sains", "2020-06-18 15:07:00"),
+    Notif("8", null, "Tugas baru Analisis Ekonom", "2020-06-18 20:04:00")
 )
