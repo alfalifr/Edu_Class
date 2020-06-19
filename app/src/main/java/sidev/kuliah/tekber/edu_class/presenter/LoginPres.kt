@@ -39,7 +39,8 @@ class LoginPres(callback: PresenterCallback) : Presenter(callback){
         ThreadUtil.delayRun(2000){
             dumm_profile.search{ prof -> prof.uname == uname}
                 .notNull { prof ->
-                    postSucc(Const.RES_OK, null)
+                    val role= prof.role
+                    postSucc(Const.RES_OK, mapOf(Const.DATA_PROFILE_ROLE to role))
                 }.isNull {
                     postSucc(Const.RES_NOT_OK, null)
                 }

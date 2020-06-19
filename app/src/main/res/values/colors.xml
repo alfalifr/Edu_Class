@@ -21,4 +21,7 @@
     <color name="grey_to_white">#DADADA</color>
     <color name="grey_bg">#EFEFEF</color>
     <color name="grey_trans">#22000000</color>
+
+    <color name="white_trans">#BBFFFFFF</color>
+    <color name="white_transer">#55FFFFFF</color>
 </resources>

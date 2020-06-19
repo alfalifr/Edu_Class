@@ -4,8 +4,12 @@ import android.app.Activity
 
 object Const {
     val KEY_UNAME= "uname"
+    val KEY_PROFILE_ROLE= "profile_role"
 
-    val FORMAT_DATE= "YYYY-MM-dd"
+    val ROLE_STUDENT= 1
+    val ROLE_TEACHER= 2
+
+    val FORMAT_DATE= "yyyy-MM-dd"
     val FORMAT_TIME= "HH:mm:ss"
     val FORMAT_TIMESTAMP= "$FORMAT_DATE $FORMAT_TIME"
 
@@ -44,6 +48,7 @@ object Const {
     val DATA_UNAME= "uname"
     val DATA_PSWD= "pswd"
     val DATA_PROFILE= "profile"
+    val DATA_PROFILE_ROLE= "profile_role"
     val DATA_NOTIF= "news"
     val DATA_PRESENCE_CLASS= "presence_class"
     val DATA_PRESENCE_TIME_NOW= "presence_time_now"

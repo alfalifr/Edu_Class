@@ -12,7 +12,9 @@ import sidev.lib.android.siframe.presenter.Presenter
 import sidev.lib.android.siframe.tool.util._ViewUtil.setBgColor
 import sidev.lib.android.siframe.tool.util.`fun`.getRootView
 import sidev.lib.android.siframe.tool.util.`fun`.loge
+import sidev.lib.universal.`fun`.asNotNull
 import sidev.lib.universal.`fun`.notNull
+import sidev.lib.universal.tool.util.TimeUtil
 
 class NotifListFrag : RvFrag<NotifAdp>(){
     override val fragTitle: String
@@ -23,10 +25,7 @@ class NotifListFrag : RvFrag<NotifAdp>(){
     }
 
     override fun _initView(layoutView: View) {
-        getRootView().notNull { v ->
-            setBgColor(v, R.color.abu)
-            loge("_initView() getRootView() notNull")
-        }
+        rv.parent.asNotNull { v: View -> setBgColor(v, R.color.abu) }
         onRefreshListener= { downloadData() }
         downloadData()
     }
@@ -54,6 +53,7 @@ class NotifListFrag : RvFrag<NotifAdp>(){
             Const.REQ_GET_NOTIF -> {
                 if(resCode == Const.RES_OK){
                     val data= data!![Const.DATA_NOTIF] as ArrayList<Notif>
+                    rvAdp.lastReadTimestamp= TimeUtil.timestamp(pattern = Const.FORMAT_TIMESTAMP)
                     rvAdp.dataList= data
                 }
             }

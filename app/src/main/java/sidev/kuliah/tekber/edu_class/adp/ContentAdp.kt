@@ -5,10 +5,7 @@ import android.content.Context
 import android.util.SparseArray
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.RadioButton
-import android.widget.RadioGroup
-import android.widget.TextView
+import android.widget.*
 import androidx.core.net.toUri
 import androidx.core.util.set
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,6 +25,7 @@ import sidev.lib.android.siframe.adapter.RvMultiViewAdp
 import sidev.lib.android.siframe.customizable._init._Config
 import sidev.lib.android.siframe.tool.util._ViewUtil
 import sidev.lib.android.siframe.tool.util._ViewUtil.Comp.getTvNote
+import sidev.lib.android.siframe.tool.util._ViewUtil.setColor
 import sidev.lib.android.siframe.tool.util.`fun`.detachFromParent
 import sidev.lib.android.siframe.tool.util.`fun`.inflate
 import sidev.lib.android.siframe.tool.util.`fun`.loge
@@ -83,7 +81,41 @@ class ContentAdp(c: Context, data: ArrayList<Content>?)
                 loge("bindVhMulti() ContentRead isEditable= $isEditable")
             }
             is ContentVideo -> {
+                loge("video url= ${data.link}")
+                val mc= MediaController(ctx)
+                mc.setAnchorView(v.vv)
+                v.vv.setMediaController(mc)
                 v.vv.setVideoURI(data.link.toUri())
+
+                v.pb.visibility= View.VISIBLE
+                v.iv_play.visibility= View.GONE
+                setColor(v.iv_play, R.color.white_transer)
+
+                v.vv.setOnPreparedListener { mp ->
+                    var isPlaying= false
+                    v.pb.visibility= View.GONE
+                    v.iv_play.visibility= View.VISIBLE
+                    setColor(v.iv_play, R.color.white_trans)
+                    v.iv_play.setOnClickListener {
+                        if(!isPlaying){
+                            mp.start()
+                            it.visibility= View.GONE
+                            isPlaying= true
+                        } else {
+                            mp.pause()
+                            it.visibility= View.VISIBLE
+                            isPlaying= false
+                        }
+                    }
+                }
+
+                v.vv.setOnErrorListener { mp, what, extra ->
+                    v.pb.visibility= View.GONE
+                    v.iv_play.setImageResource(R.drawable.ic_cross)
+                    setColor(v.iv_play, R.color.merah)
+                    true
+                }
+
                 getTvNote?.invoke(v).notNull { tv ->
                     if(data.note != null){
                         tv.text= data.note!!

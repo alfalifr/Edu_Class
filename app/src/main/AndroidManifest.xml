@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="sidev.kuliah.tekber.edu_class">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_graduate_logo"
@@ -10,7 +12,13 @@
         android:supportsRtl="true"
         android:name="sidev.kuliah.tekber.edu_class.app.App"
         android:theme="@style/AppTheme">
-        <activity android:name="sidev.kuliah.tekber.edu_class.act.SimpleSingleFragActImpl" />
+
+        <!-- MAIN -->
+        <activity android:name=".act.StudentMainAct"/>
+        <activity android:name=".act.TeacherMainAct"/>
+        <!-- MAIN end-->
+
+        <activity android:name=".act.SimpleSingleFragActImpl" />
         <activity android:name=".act.ContentAct" />
 
         <activity android:name="sidev.kuliah.tekber.edu_class.act.LoginAct" >
@@ -19,9 +27,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <activity android:name="sidev.kuliah.tekber.edu_class.MainActivity">
         </activity>
 
     </application>

@@ -4,7 +4,6 @@ import android.view.View
 import android.widget.Button
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.page_login.view.*
-import sidev.kuliah.tekber.edu_class.MainActivity
 import sidev.kuliah.tekber.edu_class.R
 import sidev.kuliah.tekber.edu_class.presenter.LoginPres
 import sidev.kuliah.tekber.edu_class.util.Const
@@ -19,7 +18,6 @@ import sidev.lib.android.siframe.tool.util._ViewUtil.Comp.setEtHint
 import sidev.lib.android.siframe.tool.util._ViewUtil.Comp.setTvNoteMode
 import sidev.lib.android.siframe.tool.util._ViewUtil.Comp.setTvNoteTxt
 import sidev.lib.android.siframe.tool.util._ViewUtil.Comp.setTvTitleTxt
-import sidev.lib.android.siframe.tool.util._ViewUtil.Comp.showPassword
 import sidev.lib.android.siframe.tool.util.`fun`.loge
 import sidev.lib.android.siframe.tool.util.`fun`.startAct
 import sidev.lib.android.siframe.tool.util.`fun`.toast
@@ -71,7 +69,7 @@ class LoginAct : SimpleAbsBarContentNavAct(){
 
     fun checkLogin(){
         _StorageUtil.SharedPref.getSharedPref(this, Const.KEY_UNAME).notNull { uname ->
-            startAct<MainActivity>()
+            startAct<StudentMainAct>()
         }.isNull { showPb(false) }
     }
 
@@ -121,10 +119,23 @@ class LoginAct : SimpleAbsBarContentNavAct(){
             Const.REQ_LOGIN -> {
                 when(resCode){
                     Const.RES_OK -> {
+                        val role= data!![Const.DATA_PROFILE_ROLE] as Int
                         _StorageUtil.SharedPref.setSharedPref(this, Const.KEY_UNAME, uname)
-                        startAct<MainActivity>()
+                        _StorageUtil.SharedPref.setSharedPref(this, Const.KEY_PROFILE_ROLE, role.toString())
+                        when(role){
+                            Const.ROLE_STUDENT -> {
+                                startAct<StudentMainAct>()
+                                toast("Anda masuk sebagai Pelajar")
+                            }
+                            Const.ROLE_TEACHER -> {
+                                startAct<StudentMainAct>()
+                                toast("Anda masuk sebagai Pengajar")
+                            }
+                        }
                     }
                     Const.RES_NOT_OK -> {
+                        setTvNoteTxt(layoutView.comp_pswd, "Anda salah memasukan username atau password.")
+                        getTvNote?.invoke(layoutView.comp_pswd).notNull { tv -> tv.visibility= View.VISIBLE }
                         toast("Username atau password yg Anda masukan salah.")
                     }
                 }

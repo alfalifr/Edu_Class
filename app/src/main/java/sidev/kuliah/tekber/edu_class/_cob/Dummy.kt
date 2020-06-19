@@ -5,10 +5,12 @@ import sidev.kuliah.tekber.edu_class.util.Const
 import sidev.lib.android.siframe.tool.util.`fun`.fkmFrom
 
 val dumm_profile= arrayOf(
-    Profil("1", "stud1", "Barjo Ko", "08123321456", "barjo@mail.com"),
-    Profil("2", "stud2", "Pak Ijo", "088877123", "ijoroyo@mail.com"),
-    Profil("3", "stud3", "Eko Koko", "0123321432", "kokobelok@mail.com"),
-    Profil("4", "stud4", "JesMunee", "0521134567", "jesmun@mail.com")
+    Profil("1", Const.ROLE_STUDENT, "stud1", "Barjo Ko", "08123321456", "barjo@mail.com"),
+    Profil("2", Const.ROLE_STUDENT, "stud2", "Pak Ijo", "088877123", "ijoroyo@mail.com"),
+    Profil("3", Const.ROLE_STUDENT, "stud3", "Eko Koko", "0123321432", "kokobelok@mail.com"),
+    Profil("4", Const.ROLE_STUDENT, "stud4", "JesMunee", "0521134567", "jesmun@mail.com"),
+    Profil("5", Const.ROLE_TEACHER, "teach1", "Bambang Seger", "123321", "bambang@mail.com"),
+    Profil("6", Const.ROLE_TEACHER, "teach2", "Ratna Tresmuni", "331273", "tresmuni@mail.com")
 )
 
 
@@ -33,11 +35,11 @@ val dumm_content_question= arrayOf(
 )
 
 val dumm_content_video= arrayOf(
-    ContentVideo("1", "https://www.youtube.com/watch?v=cf3lgs_fFnM&list=RDMM7foU3Sd3RnE&index=4", "Inspirasi pagi hari"),
-    ContentVideo("2", "https://www.youtube.com/watch?v=VTUCTT6I1TU", null),
-    ContentVideo("3", "https://www.youtube.com/watch?v=AgPj1Q6D--c", "Ttg koding"),
-    ContentVideo("4", "https://www.youtube.com/watch?v=Ci4L6myFFng", "Tentang om ensten"),
-    ContentVideo("5", "https://www.youtube.com/watch?v=c_jyHp3bmEw", "Om darwin")
+    ContentVideo("1", "https://cobtemp.000webhostapp.com/eksploho/mike_shinoda_post_traumatic.mp4", "Inspirasi pagi hari"),
+    ContentVideo("2", "https://cobtemp.000webhostapp.com/eksploho/iotbs_creature.mp4", null),
+    ContentVideo("3", "https://cobtemp.000webhostapp.com/eksploho/coding.mp4", "Ttg koding"),
+    ContentVideo("4", "https://cobtemp.000webhostapp.com/eksploho/iotbs_ensten.mp4", "Tentang om ensten"),
+    ContentVideo("5", "https://cobtemp.000webhostapp.com/eksploho/iotbs_darwin.mp4", "Om darwin")
 )
 
 
@@ -46,7 +48,7 @@ val dumm_page= arrayOf(
     Page("1", "Pengantar", 1, fkmFrom(dumm_content_read[0])),
     Page("2", "Physic of Gravity", 2, fkmFrom(dumm_content_video[3], dumm_content_read[1], dumm_content_read[2], dumm_content_read[3])),
     Page("3", "Latihan soal", 3, fkmFrom(*dumm_content_question)),
-    Page("4", "All is bout change", 2, fkmFrom(dumm_content_video[3], dumm_content_question[3], dumm_content_read[1]))
+    Page("4", "All is bout change", 2, fkmFrom(dumm_content_video[4], dumm_content_question[3], dumm_content_read[1]))
 )
 
 
@@ -100,12 +102,15 @@ val dumm_presence_class_smt= arrayOf(
 )
 
 val dumm_news= arrayOf(
-    Notif("1", null, "Tugas baru Analisis Sains", "2020-06-18 10:01:00"),
-    Notif("2", null, "DL tugas 2 Analisis Sains", "2020-06-18 11:01:00"),
-    Notif("3", null, "Tugas baru Analisis Ekonom", "2020-06-18 12:01:00"),
-    Notif("4", null, "Tugas baru Analisis Sains!", "2020-06-18 12:10:00"),
+    Notif("1", null, "Tugas baru Analisis Sains", "2020-06-15 10:01:00"),
+    Notif("2", null, "DL tugas 2 Analisis Sains", "2020-06-15 11:01:00"),
+    Notif("3", null, "Tugas baru Analisis Ekonom", "2020-06-16 12:01:00"),
+    Notif("4", null, "Tugas baru Analisis Sains!", "2020-06-17 12:10:00"),
     Notif("5", "AS Pindah kelas", "Pindah ke gedung A", "2020-06-18 12:11:10"),
     Notif("6", "Kuis mendadak", "Besok AS ada kuis", "2020-06-18 13:01:00"),
     Notif("7", null, "Tugas baru Analisis Sains", "2020-06-18 15:07:00"),
-    Notif("8", null, "Tugas baru Analisis Ekonom", "2020-06-18 20:04:00")
+    Notif("8", null, "Tugas baru Analisis Ekonom", "2020-06-18 20:04:00"),
+    Notif("8", null, "Tugas baru Analisis Ekonom", "2020-06-19 21:04:00"),
+    Notif("8", null, "Tugas baru Analisis Ekonom", "2020-06-19 23:04:00"),
+    Notif("8", null, "Tugas baru Analisis Ekonom", "2020-20-20 20:04:00")
 )

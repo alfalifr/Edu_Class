@@ -1,6 +1,7 @@
-package sidev.kuliah.tekber.edu_class
+package sidev.kuliah.tekber.edu_class.act
 
 import android.view.View
+import sidev.kuliah.tekber.edu_class.R
 import sidev.kuliah.tekber.edu_class.frag.ClassFrag
 import sidev.kuliah.tekber.edu_class.frag.HomeFrag
 import sidev.kuliah.tekber.edu_class.frag.NotifListFrag
@@ -8,7 +9,7 @@ import sidev.kuliah.tekber.edu_class.frag.PresenceClassListFrag
 import sidev.lib.android.siframe.lifecycle.activity.SimpleAbsBarContentNavAct_ViewPager
 import sidev.lib.android.siframe.lifecycle.fragment.SimpleAbsFrag
 
-class MainActivity : SimpleAbsBarContentNavAct_ViewPager<SimpleAbsFrag>() {
+class TeacherMainAct : SimpleAbsBarContentNavAct_ViewPager<SimpleAbsFrag>() {
     override var isVpTitleFragBased: Boolean= true
     override var menuId: Int? = R.menu.main_student
     override val isNavBarVisible: Boolean
