@@ -39,6 +39,7 @@
             app:cardCornerRadius="@dimen/card_radius"
             android:backgroundTint="@color/accentTranser">
             <EditText
+                android:id="@+id/et_fill"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"/>

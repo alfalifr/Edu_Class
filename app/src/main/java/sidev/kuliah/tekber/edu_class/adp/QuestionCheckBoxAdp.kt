@@ -18,6 +18,7 @@ class QuestionCheckBoxAdp(c: Context, data: ArrayList<String>?)
         get() = R.layout.comp_item_fill_choice_checkbox
 
     val cbCheckedList= SparseArray<Boolean>()
+    var onCheckedChangeListener: ((isChecked: Boolean, pos: Int) -> Unit)?= null
 
     override fun bindVH(vh: SimpleViewHolder, pos: Int, data: String) {
         val v= vh.itemView
@@ -29,6 +30,7 @@ class QuestionCheckBoxAdp(c: Context, data: ArrayList<String>?)
         }
 
         v.cb.setOnCheckedChangeListener { buttonView, isChecked ->
+            onCheckedChangeListener?.invoke(isChecked, pos)
             cbCheckedList[pos]= isChecked
         }
     }

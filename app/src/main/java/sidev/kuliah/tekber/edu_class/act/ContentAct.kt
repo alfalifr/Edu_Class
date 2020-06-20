@@ -16,6 +16,7 @@ import sidev.kuliah.tekber.edu_class.model.Page
 import sidev.kuliah.tekber.edu_class.presenter.PageContentPres
 import sidev.kuliah.tekber.edu_class.util.Const
 import sidev.lib.android.siframe.customizable._init._Config
+import sidev.lib.android.siframe.customizable.view.ModableVp
 import sidev.lib.android.siframe.intfc.lifecycle.sidebase.DrawerActBase
 import sidev.lib.android.siframe.lifecycle.activity.DrawerBarContentNavAct_ViewPager
 import sidev.lib.android.siframe.presenter.Presenter
@@ -26,6 +27,7 @@ import sidev.lib.android.siframe.tool.util.`fun`.getExtra
 import sidev.lib.android.siframe.tool.util.`fun`.getRootView
 import sidev.lib.android.siframe.tool.util.`fun`.loge
 import sidev.lib.android.siframe.tool.util.`fun`.toast
+import sidev.lib.universal.`fun`.asNotNull
 import sidev.lib.universal.`fun`.notNull
 
 class ContentAct : DrawerBarContentNavAct_ViewPager<ContentFrag>(){
@@ -104,6 +106,11 @@ class ContentAct : DrawerBarContentNavAct_ViewPager<ContentFrag>(){
     }
 
     override fun _initView(layoutView: View) {
+        vp.asNotNull { modVp: ModableVp ->
+            modVp.isTouchable= false
+            modVp.isTouchInterceptable= false
+            loge("vp is ModableVp")
+        }
         vp.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
             override fun onPageScrollStateChanged(state: Int) {}
             override fun onPageScrolled(
@@ -187,7 +194,14 @@ class ContentAct : DrawerBarContentNavAct_ViewPager<ContentFrag>(){
                         showSideNavNoData(false)
                         val contentFragList= Array(pageList.size){
                             val frag= ContentFrag()
-                            frag.pageId= pageList[it].id
+//                            frag.pageId= pageList[it].id
+                            frag.pageData= pageList[it]
+                            frag.isNextPageQuiz=
+                                try{ pageList[it+1].isQuiz }
+                                catch (e: IndexOutOfBoundsException){ false }
+                            frag.isNextPageQuizStillValid=
+                                try{ pageList[it+1].isQuizStillValid }
+                                catch (e: IndexOutOfBoundsException){ true }
                             frag
                         }
                         sideNavAdp.dataList= pageList

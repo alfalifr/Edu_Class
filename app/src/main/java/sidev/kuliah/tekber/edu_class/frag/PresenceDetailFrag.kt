@@ -9,19 +9,22 @@ import sidev.kuliah.tekber.edu_class.R
 import sidev.kuliah.tekber.edu_class.adp.PresenceAdp
 import sidev.kuliah.tekber.edu_class.adp.PresenceScheduleAdp
 import sidev.kuliah.tekber.edu_class.dialog.EnterPresenceCodeDialog
+import sidev.kuliah.tekber.edu_class.dialog.PresenceIjinDialog
 import sidev.kuliah.tekber.edu_class.dialog.PresenceNewsDialog
 import sidev.kuliah.tekber.edu_class.model.PresenceClass
 import sidev.kuliah.tekber.edu_class.model.Presence_
 import sidev.kuliah.tekber.edu_class.presenter.PresencePres
 import sidev.kuliah.tekber.edu_class.util.Const
+import sidev.kuliah.tekber.edu_class.util.Util
 import sidev.lib.android.siframe.lifecycle.activity.SimpleAbsBarContentNavAct
 import sidev.lib.android.siframe.lifecycle.fragment.SimpleAbsFrag
 import sidev.lib.android.siframe.presenter.Presenter
-import sidev.lib.android.siframe.tool.util.`fun`.firstObj
-import sidev.lib.android.siframe.tool.util.`fun`.getExtra
-import sidev.lib.android.siframe.tool.util.`fun`.toObjList
-import sidev.lib.android.siframe.tool.util.`fun`.toast
+import sidev.lib.android.siframe.tool.util.`fun`.*
 import sidev.lib.universal.`fun`.asNotNull
+import sidev.lib.universal.`fun`.isNull
+import sidev.lib.universal.`fun`.notNull
+import java.io.File
+import java.net.URI
 
 
 class PresenceDetailFrag : SimpleAbsFrag(){
@@ -33,8 +36,11 @@ class PresenceDetailFrag : SimpleAbsFrag(){
     lateinit var presenceAdp: PresenceAdp
     lateinit var dialogEnterCode: EnterPresenceCodeDialog
     lateinit var dialogNews: PresenceNewsDialog
+    lateinit var dialogIjin: PresenceIjinDialog
     var presenceBeingChanged: Presence_?= null
     var newsBeingWritten: String?= null
+    var reasonBeingWritten: String?= null
+    var suratIjinFile: File?= null
 
     lateinit var presenceCls: PresenceClass
 /*
@@ -79,6 +85,12 @@ class PresenceDetailFrag : SimpleAbsFrag(){
                 }
                 Const.STATUS_PRESENCE_IJIN -> {
                     //!!!Belm ada dialog untuk ijin.
+                    if(presence.attachment != null && presence.attachment!!.isNotEmpty()){
+                        presence.attachment!!.first().asNotNull { file: File ->
+                            dialogIjin.setFileName(file.name)
+                        }
+                    }
+                    dialogIjin.showWithReason(presence.news)
                 }
             }
         }
@@ -90,20 +102,37 @@ class PresenceDetailFrag : SimpleAbsFrag(){
 
         dialogEnterCode= EnterPresenceCodeDialog(context!!)
         dialogNews= PresenceNewsDialog(context!!)
+        dialogIjin= PresenceIjinDialog(context!!)
 
         dialogEnterCode.onEnterCodeEndListener= { dialog, code, isCancelled ->
-            if(isCancelled) dialog.cancel()
-            else{
-                savePresenceCode(code)
+            if(isCancelled){
+                dialog.clearField()
+                dialog.cancel()
+            } else{
                 dialog.showPb()
+                savePresenceCode(presenceBeingChanged!!.id, code)
             }
         }
         dialogNews.onNewsEndListener= { dialog, news, isCancelled ->
-            if(isCancelled) dialog.cancel()
-            else{
-                saveNews(news)
+            if(isCancelled) {
+                dialog.clearField()
+                dialog.cancel()
+            } else{
                 dialog.showPb()
+                saveNews(presenceBeingChanged!!.id, news)
             }
+        }
+        dialogIjin.onIjinEndListener= { dialog, reason, isCancelled ->
+            if(isCancelled) {
+                dialog.clearField()
+                dialog.cancel()
+            } else{
+                dialog.showPb()
+                saveIjin(presenceBeingChanged!!.id, reason)
+            }
+        }
+        dialogIjin.onAttachmentClickListener= { dialog ->
+            Util.pickFile(this, "Masukan surat ijin", Const.REQ_PICK_FILE)
         }
 
         layoutView.srl.setOnRefreshListener { downloadData() }
@@ -124,12 +153,46 @@ class PresenceDetailFrag : SimpleAbsFrag(){
         showPb()
     }
 
-    fun savePresenceCode(code: String){
-        sendRequest(Const.REQ_SEND_PRESENCE_CODE, Const.DATA_PRESENCE_CODE to code)
+    fun savePresenceCode(presenceId: String, code: String){
+        if(code.isNotBlank()){
+            sendRequest(Const.REQ_SEND_PRESENCE_CODE,
+                Const.DATA_PRESENCE_ID to presenceId,
+                Const.DATA_PRESENCE_CODE to code
+            )
+        } else {
+            dialogEnterCode.showPb(false)
+            toast("Kode belum dimasukkan")
+        }
     }
-    fun saveNews(news: String){
-        newsBeingWritten= news
-        sendRequest(Const.REQ_SEND_PRESENCE_NEWS, Const.DATA_PRESENCE_NEWS to news)
+    fun saveNews(presenceId: String, news: String){
+        if(news.isNotBlank()){
+            newsBeingWritten= news
+            sendRequest(Const.REQ_SEND_PRESENCE_NEWS,
+                Const.DATA_PRESENCE_ID to presenceId,
+                Const.DATA_PRESENCE_NEWS to news
+            )
+        } else {
+            dialogNews.showPb(false)
+            toast("Berita acara belum dimasukkan")
+        }
+    }
+    fun saveIjin(presenceId: String, reason: String){
+        if(reason.isNotBlank()){
+            reasonBeingWritten= reason
+            suratIjinFile.notNull { file ->
+                sendRequest(Const.REQ_SEND_PRESENCE_IJIN,
+                    Const.DATA_PRESENCE_ID to presenceId,
+                    Const.DATA_PRESENCE_IJIN_REASON to reason,
+                    Const.DATA_PRESENCE_IJIN_FILE to file
+                )
+            }.isNull {
+                dialogIjin.showPb(false)
+                toast("Masukan surat ijin terlebih dahulu")
+            }
+        } else{
+            dialogIjin.showPb(false)
+            toast("Mohon isi keterangan ijin")
+        }
     }
 
     fun updateHeaderInfo(presenceCls: PresenceClass){
@@ -155,10 +218,13 @@ class PresenceDetailFrag : SimpleAbsFrag(){
             Const.REQ_SEND_PRESENCE_CODE -> {
                 if(resCode == Const.RES_OK){
                     dialogEnterCode.showPb(false)
+                    dialogEnterCode.clearField()
                     dialogEnterCode.cancel()
                     presenceBeingChanged?.status= Const.STATUS_PRESENCE_PRESENT
                     presenceAdp.notifyDataSetChanged_()
                     toast("Absensi berhasil")
+                } else{
+                    toast("Kode yg anda masukan salah")
                 }
             }
             Const.REQ_SEND_PRESENCE_NEWS -> {
@@ -166,6 +232,49 @@ class PresenceDetailFrag : SimpleAbsFrag(){
                     dialogNews.showPb(false)
                     presenceBeingChanged?.news= newsBeingWritten
                     toast("Berita acara berhasil disimpan")
+                }
+            }
+            Const.REQ_SEND_PRESENCE_IJIN -> {
+                if(resCode == Const.RES_OK){
+                    dialogIjin.showPb(false)
+                    dialogIjin.clearField()
+                    dialogIjin.cancel()
+                    presenceBeingChanged?.status= Const.STATUS_PRESENCE_IJIN
+                    presenceBeingChanged?.excuseReason= reasonBeingWritten
+                    presenceBeingChanged?.attachment.notNull { attList ->
+                        attList.clear()
+                        attList.add(suratIjinFile!!)
+                    }.isNull {
+                        val attList= ArrayList<Any>()
+                        attList.add(suratIjinFile!!)
+                        presenceBeingChanged?.attachment= attList
+                    }
+                    presenceAdp.notifyDataSetChanged_()
+                    toast("Surat ijin berhasil dikirim")
+                }
+            }
+        }
+    }
+
+    override fun onPresenterFail(reqCode: String, resCode: Int, msg: String?, e: Exception?) {
+        showPb(false)
+        val str= when(reqCode){
+            Const.REQ_GET_PRESENCE_DETAIL -> " saat load data presensi"
+            Const.REQ_SEND_PRESENCE_CODE -> " saat mengirim kode presensi"
+            Const.REQ_SEND_PRESENCE_NEWS -> " saat menyimpan berita acara"
+            Const.REQ_SEND_PRESENCE_IJIN -> " saat mengirim durat ijin"
+            else -> ""
+        }
+        toast("Terjadi kesalahan$str.\nHarap ulangi.")
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when(requestCode){
+            Const.REQ_PICK_FILE -> {
+                data?.data.notNull { uri ->
+                    suratIjinFile= File(uri.path)
+                    dialogIjin.setFileName(suratIjinFile!!.name)
                 }
             }
         }

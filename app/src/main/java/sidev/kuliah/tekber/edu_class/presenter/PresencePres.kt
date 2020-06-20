@@ -12,6 +12,7 @@ import sidev.lib.universal.`fun`.notNull
 import sidev.lib.universal.`fun`.search
 import sidev.lib.universal.`fun`.toArrayList
 import sidev.lib.universal.tool.util.ThreadUtil
+import java.io.File
 
 class PresencePres(c: PresenterCallback) : Presenter(c){
     override fun checkDataIntegrity(
@@ -32,14 +33,23 @@ class PresencePres(c: PresenterCallback) : Presenter(c){
                 getPresenceDetail(classId)
             }
             Const.REQ_SEND_PRESENCE_CODE -> {
+                val presenceId= data!![Const.DATA_PRESENCE_ID] as String
                 val presenceCode= data!![Const.DATA_PRESENCE_CODE] as String
                 val uname= _StorageUtil.SharedPref.getSharedPref(ctx!!, Const.DATA_UNAME)!!
-                savePresenceCode(uname, presenceCode)
+                savePresenceCode(uname, presenceId, presenceCode)
             }
             Const.REQ_SEND_PRESENCE_NEWS -> {
+                val presenceId= data!![Const.DATA_PRESENCE_ID] as String
                 val presenceNews= data!![Const.DATA_PRESENCE_NEWS] as String
                 val uname= _StorageUtil.SharedPref.getSharedPref(ctx!!, Const.DATA_UNAME)!!
-                savePresenceNews(uname, presenceNews)
+                savePresenceNews(uname, presenceId, presenceNews)
+            }
+            Const.REQ_SEND_PRESENCE_IJIN -> {
+                val presenceId= data!![Const.DATA_PRESENCE_ID] as String
+                val reason= data!![Const.DATA_PRESENCE_IJIN_REASON] as String
+                val file= data!![Const.DATA_PRESENCE_IJIN_FILE] as File
+                val uname= _StorageUtil.SharedPref.getSharedPref(ctx!!, Const.DATA_UNAME)!!
+                savePresenceIjin(uname, presenceId, reason, file)
             }
 //            Const.REQ_GET_PRESENCE_TIME_NOW -> getTimeNow()
 //            Const.REQ_GET_PRESENCE_UPCOMING_CLASS -> getUpcomingClass()
@@ -74,13 +84,19 @@ class PresencePres(c: PresenterCallback) : Presenter(c){
         }
     }
 
-    fun savePresenceCode(uname: String, presenceCode: String){
+    fun savePresenceCode(uname: String, presenceId: String, presenceCode: String){
         ThreadUtil.delayRun(3000){
             postSucc(Const.RES_OK, null)
         }
     }
 
-    fun savePresenceNews(uname: String, news: String){
+    fun savePresenceNews(uname: String, presenceId: String, news: String){
+        ThreadUtil.delayRun(3000){
+            postSucc(Const.RES_OK, null)
+        }
+    }
+
+    fun savePresenceIjin(uname: String, presenceId: String, reason: String, file: File) {
         ThreadUtil.delayRun(3000){
             postSucc(Const.RES_OK, null)
         }

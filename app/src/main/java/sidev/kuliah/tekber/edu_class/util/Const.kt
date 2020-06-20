@@ -26,6 +26,9 @@ object Const {
     val REQ_GET_PRESENCE_DETAIL= "get_presence_detail"
     val REQ_SEND_PRESENCE_CODE= "send_presence_code"
     val REQ_SEND_PRESENCE_NEWS= "send_presence_news"
+    val REQ_SEND_PRESENCE_IJIN= "send_presence_ijin"
+    val REQ_SEND_QUESTION_ANSWER= "send_question_answer"
+    val REQ_PICK_FILE= 2
 
     val RES_OK= Activity.RESULT_OK
     val RES_NOT_OK= -10
@@ -45,6 +48,7 @@ object Const {
     val DATA_PAGE_ID= "page_id"
     val DATA_CONTENT= "content"
     val DATA_CONTENT_ID= "content_id"
+    val DATA_QUESTION_ANSWER= "question_answer"
     val DATA_UNAME= "uname"
     val DATA_PSWD= "pswd"
     val DATA_PROFILE= "profile"
@@ -56,8 +60,11 @@ object Const {
     val DATA_PRESENCE_CLASS_SMT= "presence_class_smt"
     val DATA_PRESENCE_SCHEDULE= "presence_schedule"
     val DATA_PRESENCE= "presence"
+    val DATA_PRESENCE_ID= "presence_id"
     val DATA_PRESENCE_CODE= "presence_code"
     val DATA_PRESENCE_NEWS= "presence_news"
+    val DATA_PRESENCE_IJIN_REASON= "presence_ijin_reason"
+    val DATA_PRESENCE_IJIN_FILE= "presence_ijin_file"
 
 
     val STATUS_PRESENCE_NEW= 0

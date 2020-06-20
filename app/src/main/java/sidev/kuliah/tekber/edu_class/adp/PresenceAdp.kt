@@ -17,6 +17,7 @@ class PresenceAdp(c: Context, data: ArrayList<Presence_>?)
 
     var onStatusChangeListener: ((Presence_, status: Int, pos: Int) -> Unit)?= null
     var onNewsClickListener: ((Presence_, news: String?, pos: Int) -> Unit)?= null
+//    var onIjinClickListener: ((Presence_, reason: String?, pos: Int) -> Unit)?= null
 
     override fun bindVH(vh: SimpleViewHolder, pos: Int, data: Presence_) {
         val v= vh.itemView

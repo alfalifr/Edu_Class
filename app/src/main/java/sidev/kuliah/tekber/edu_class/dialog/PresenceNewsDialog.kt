@@ -50,4 +50,8 @@ class PresenceNewsDialog(c: Context) : DialogAbsView<PresenceNewsDialog>(c){
         layoutView.et.setText(news)
         show()
     }
+
+    fun clearField(){
+        layoutView.et.setText("")
+    }
 }

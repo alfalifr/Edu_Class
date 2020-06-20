@@ -3,30 +3,29 @@ package sidev.kuliah.tekber.edu_class.dialog
 import android.content.Context
 import android.view.View
 import android.widget.Button
-import kotlinx.android.synthetic.main.dialog_presence_enter_code.view.*
+import kotlinx.android.synthetic.main.dialog_content_frag_quiz.view.*
 import sidev.kuliah.tekber.edu_class.R
+import sidev.kuliah.tekber.edu_class.util.Util
 import sidev.lib.android.siframe.tool.util._ViewUtil.Comp.setBtnHollow
 import sidev.lib.android.siframe.tool.util._ViewUtil.Comp.setBtnSolid
 import sidev.lib.android.siframe.view.tool.dialog.DialogAbsView
 import sidev.lib.universal.`fun`.notNull
 
-class EnterPresenceCodeDialog(c: Context) : DialogAbsView<EnterPresenceCodeDialog>(c){
+class ContentWarningDialog(c: Context) : DialogAbsView<ContentWarningDialog>(c){
     override val layoutId: Int
-        get() = R.layout.dialog_presence_enter_code
+        get() = R.layout.dialog_content_frag_quiz
 
-    var onEnterCodeEndListener: ((dialog: EnterPresenceCodeDialog, code: String, isCancelled: Boolean) -> Unit)?= null
+    var onButtonClickListener: ((btn: Button, isCancelled: Boolean) -> Unit)?= null
 
     init{
-        layoutView.btn_right.setOnClickListener {
-            onEnterCodeEndListener.notNull { l ->
-                val code= layoutView.et.text.toString()
-                l(this, code, false)
+        layoutView.btn_right.setOnClickListener { btn ->
+            onButtonClickListener.notNull { l ->
+                l(btn as Button, false)
             }
         }
-        layoutView.btn_left.setOnClickListener {
-            onEnterCodeEndListener.notNull { l ->
-                val code= layoutView.et.text.toString()
-                l(this, code, true)
+        layoutView.btn_left.setOnClickListener { btn ->
+            onButtonClickListener.notNull { l ->
+                l(btn as Button, true)
             }
         }
 
@@ -36,7 +35,15 @@ class EnterPresenceCodeDialog(c: Context) : DialogAbsView<EnterPresenceCodeDialo
         setBtnHollow(layoutView.btn_left as Button)
         setBtnSolid(layoutView.btn_right as Button)
 
-        setTitle("Masukan kode presensi")
+        showTitle(false)
+    }
+
+    fun setMainMsg(msg: String){
+        layoutView.tv.text= msg
+    }
+
+    fun setRightBtnTxt(txt: String){
+        (layoutView.btn_right as Button).text= txt
     }
 
     fun showPb(show: Boolean= true){
@@ -44,9 +51,5 @@ class EnterPresenceCodeDialog(c: Context) : DialogAbsView<EnterPresenceCodeDialo
         else View.GONE
         layoutView.rl_btn_container.visibility= if(!show) View.VISIBLE
         else View.GONE
-    }
-
-    fun clearField(){
-        layoutView.et.setText("")
     }
 }

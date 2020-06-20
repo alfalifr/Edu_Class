@@ -5,6 +5,7 @@ import sidev.kuliah.tekber.edu_class._cob.dumm_page
 import sidev.kuliah.tekber.edu_class.util.Const
 import sidev.lib.android.siframe.presenter.Presenter
 import sidev.lib.android.siframe.presenter.PresenterCallback
+import sidev.lib.android.siframe.tool.util._StorageUtil
 import sidev.lib.android.siframe.tool.util.`fun`.toObjList
 import sidev.lib.universal.`fun`.notNull
 import sidev.lib.universal.`fun`.search
@@ -31,6 +32,12 @@ class PageContentPres(c: PresenterCallback) : Presenter(c){
                 val pageId= data!![Const.DATA_PAGE_ID] as String
                 getContent(pageId)
             }
+            Const.REQ_SEND_QUESTION_ANSWER -> {
+                val answerList= data!![Const.DATA_QUESTION_ANSWER] as Map<String, List<String>>
+                val pageId= data[Const.DATA_PAGE_ID] as String
+                val uname= _StorageUtil.SharedPref.getSharedPref(ctx!!, Const.KEY_UNAME)!!
+                sendQuestionAnswer(uname, pageId, answerList)
+            }
         }
     }
 
@@ -49,6 +56,12 @@ class PageContentPres(c: PresenterCallback) : Presenter(c){
                 val content= page.contentList.toObjList()!!
                 postSucc(Const.RES_OK, mapOf(Const.DATA_CONTENT to content))
             }
+        }
+    }
+
+    fun sendQuestionAnswer(uname: String, pageId: String, answerList: Map<String, List<String>>){
+        ThreadUtil.delayRun(3000){
+            postSucc(Const.RES_OK, null)
         }
     }
 }

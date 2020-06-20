@@ -25,11 +25,11 @@ val dumm_content_read= arrayOf(
 
 val dumm_content_question= arrayOf(
     ContentQuestion("1", "Apa itu gaya sentripetal?", Const.QUESTION_KIND_PILGAN,
-        arrayOf("Gaya saling menarik", "Gaya yg menjauhi titik pusat", "Gaya yg dibuat oleh Alam"), arrayOf("0"), null),
+        arrayListOf("Gaya saling menarik", "Gaya yg menjauhi titik pusat", "Gaya yg dibuat oleh Alam"), arrayListOf("0"), null),
     ContentQuestion("2", "Siapa bapak koperasi Indonesia?", Const.QUESTION_KIND_PILGAN,
-        arrayOf("Jusuf Kalla", "Soekarno", "Hatta Rajasa", "Tidak ada yg benar"), arrayOf("3"), null),
-    ContentQuestion("3", "Syarat sebuah negara?", Const.QUESTION_KIND_PILGAN,
-        arrayOf("Punya rakyat", "Punya pemerintahan", "Punya sumber daya", "Diakui yg lain"), arrayOf("0", "1","3"), null),
+        arrayListOf("Jusuf Kalla", "Soekarno", "Hatta Rajasa", "Tidak ada yg benar"), arrayListOf("3"), null),
+    ContentQuestion("3", "Syarat sebuah negara, kecuali?", Const.QUESTION_KIND_PILGAN,
+        arrayListOf("Punya rakyat", "Punya pemerintahan", "Punya sumber daya", "Diakui yg lain"), arrayListOf("0", "1","3"), null),
     ContentQuestion("4", "Jelaskan scr singkat penyebab terjadinya WW 2!", Const.QUESTION_KIND_FILL,
         null, null, null)
 )
@@ -47,7 +47,7 @@ val dumm_content_video= arrayOf(
 val dumm_page= arrayOf(
     Page("1", "Pengantar", 1, fkmFrom(dumm_content_read[0])),
     Page("2", "Physic of Gravity", 2, fkmFrom(dumm_content_video[3], dumm_content_read[1], dumm_content_read[2], dumm_content_read[3])),
-    Page("3", "Latihan soal", 3, fkmFrom(*dumm_content_question)),
+    Page("3", "Latihan soal", 3, fkmFrom(*dumm_content_question), true),
     Page("4", "All is bout change", 2, fkmFrom(dumm_content_video[4], dumm_content_question[3], dumm_content_read[1]))
 )
 
@@ -82,14 +82,14 @@ val dumm_schedule= arrayOf(
 )
 
 val dumm_presense= arrayOf(
-    Presence_("1", "17 Juni 2020", Const.STATUS_PRESENCE_PRESENT, "Belajar tentang teori gravitasi", null),
-    Presence_("2", "21 Juni 2020", Const.STATUS_PRESENCE_IJIN, null, null),
-    Presence_("3", "30 Juni 2020", Const.STATUS_PRESENCE_ALPHA, null, null),
-    Presence_("4", "10 Juli 2020", Const.STATUS_PRESENCE_PRESENT, "Teori evolusinya asik", null),
-    Presence_("5", "17 Juli 2020", Const.STATUS_PRESENCE_NEW, null, null),
-    Presence_("6", "17 Juli 2020", Const.STATUS_PRESENCE_NEW, null, null),
-    Presence_("7", "17 Juli 2020", Const.STATUS_PRESENCE_NEW, null, null),
-    Presence_("8", "17 Juli 2020", Const.STATUS_PRESENCE_NEW, null, null)
+    Presence_("1", "17 Juni 2020", Const.STATUS_PRESENCE_PRESENT, "Belajar tentang teori gravitasi", null, null),
+    Presence_("2", "21 Juni 2020", Const.STATUS_PRESENCE_IJIN, null, null, null),
+    Presence_("3", "30 Juni 2020", Const.STATUS_PRESENCE_ALPHA, null, null, null),
+    Presence_("4", "10 Juli 2020", Const.STATUS_PRESENCE_PRESENT, "Teori evolusinya asik", null, null),
+    Presence_("5", "17 Juli 2020", Const.STATUS_PRESENCE_NEW, null, null, null),
+    Presence_("6", "17 Juli 2020", Const.STATUS_PRESENCE_NEW, null, null, null),
+    Presence_("7", "17 Juli 2020", Const.STATUS_PRESENCE_NEW, null, null, null),
+    Presence_("8", "17 Juli 2020", Const.STATUS_PRESENCE_NEW, null, null, null)
 )
 
 val dumm_presence_class= arrayOf(
