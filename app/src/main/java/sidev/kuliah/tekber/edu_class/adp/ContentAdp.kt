@@ -5,13 +5,14 @@ import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.SparseArray
+import android.util.SparseIntArray
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.core.net.toUri
+import androidx.core.util.containsKey
 import androidx.core.util.set
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.comp_item_fill_choice_radio.view.*
 import kotlinx.android.synthetic.main.comp_question.view.*
 import kotlinx.android.synthetic.main.comp_read.view.*
 import kotlinx.android.synthetic.main.comp_video.view.*
@@ -23,9 +24,9 @@ import sidev.kuliah.tekber.edu_class.model.ContentVideo
 import sidev.kuliah.tekber.edu_class.util.Const
 import sidev.kuliah.tekber.edu_class.util.ViewUtil.Comp.enableEd
 import sidev.kuliah.tekber.edu_class.util.getSelectedInd
+import sidev.kuliah.tekber.edu_class.util.iterator
 import sidev.lib.android.siframe.adapter.RvMultiViewAdp
 import sidev.lib.android.siframe.customizable._init._Config
-import sidev.lib.android.siframe.tool.util._NetworkUtil
 import sidev.lib.android.siframe.tool.util._ViewUtil
 import sidev.lib.android.siframe.tool.util._ViewUtil.Comp.getTvNote
 import sidev.lib.android.siframe.tool.util._ViewUtil.setColor
@@ -49,7 +50,12 @@ class ContentAdp(c: Context, data: ArrayList<Content>?)
     val screenWidth= if(c is Activity) _ViewUtil.getScreenWidth(c)
     else ViewGroup.LayoutParams.MATCH_PARENT
 
-    private val questionIndex= ArrayList<Int>()
+    private val questionIndex= SparseIntArray()
+    var isQuestionNumberShown= true
+        set(v){
+            field= v
+            notifyDataSetChanged_()
+        }
 
     init{
         val cName= c.classSimpleName()
@@ -61,7 +67,8 @@ class ContentAdp(c: Context, data: ArrayList<Content>?)
             is ContentRead -> R.layout.comp_read
             is ContentVideo -> R.layout.comp_video
             is ContentQuestion -> {
-                if(questionIndex.indexOf(pos) < 0) questionIndex.add(pos)
+                if(!questionIndex.containsKey(pos))
+                    questionIndex[pos]= questionIndex.size() +1
                 R.layout.comp_question
             }
             else -> _Config.INT_EMPTY
@@ -74,7 +81,7 @@ class ContentAdp(c: Context, data: ArrayList<Content>?)
 //        loge("bindVhMulti() parName= $parName")
         v.findViewById<View>(_Config.ID_VG_CONTENT_CONTAINER).notNull { container ->
             container.layoutParams.width= screenWidth
-            loge("bindVhMulti() setting parent width to MATCH_PARENT screenWidth= $screenWidth")
+//            loge("bindVhMulti() setting parent width to MATCH_PARENT screenWidth= $screenWidth")
         }
         when(data){
             is ContentRead -> {
@@ -134,7 +141,10 @@ class ContentAdp(c: Context, data: ArrayList<Content>?)
                 }
             }
             is ContentQuestion -> {
-                (v.tv_question as TextView).text= data.question
+                val no=
+                    if(isQuestionNumberShown) "${questionIndex[pos]}. "
+                    else ""
+                (v.tv_question as TextView).text= "$no${data.question}"
 
                 v.cv_text_container.visibility= View.GONE
                 v.checkbox_container.visibility= View.GONE
@@ -145,12 +155,18 @@ class ContentAdp(c: Context, data: ArrayList<Content>?)
 
                 when(data.answerKind){
                     Const.QUESTION_KIND_FILL -> {
-                        vh.setIsRecyclable(false) //Karena akan merepotkan jika vh di posisi ini bisa di recycle karena ada TextWatcher nya. !!!
-                        data.answerByReader!!.add("")
                         v.cv_text_container.visibility= View.VISIBLE
+                        v.cv_text_container.et_fill.removeAllTextChangedListener()
+
+                        if(data.answerByReader!!.isEmpty())
+                            data.answerByReader!!.add("")
+                        else
+                            v.cv_text_container.et_fill.setText(data.answerByReader!!.first())
+
+//                        vh.setIsRecyclable(false) //Karena akan merepotkan jika vh di posisi ini bisa di recycle karena ada TextWatcher nya. !!!
                         v.cv_text_container.et_fill.addTextChangedListener(object : TextWatcher{
                             override fun afterTextChanged(s: Editable?) {
-                                data.answerByReader!![0]= s.toString() //
+                                data.answerByReader!![0]= s.toString()
                             }
                             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
                             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
@@ -160,20 +176,27 @@ class ContentAdp(c: Context, data: ArrayList<Content>?)
                         v.checkbox_container.visibility= View.VISIBLE
                         rvCheckBoxList[pos].notNull { adp ->
                             adp.rv= v.checkbox_container
+                            adp.rv!!.isNestedScrollingEnabled= false
+                            //Gak usah bind adp.cbCheckedList di sini karena adp udah disimpan di list.
                         }.isNull {
-                            try {
-                                for(i in data.answerChoice!!.indices)
-                                    data.answerByReader!!.add("")
-                            } catch (e: Exception){ }
-
                             val adp= QuestionCheckBoxAdp(ctx, data.answerChoice)
                             adp.rv= v.checkbox_container
+                            adp.rv!!.isNestedScrollingEnabled= false
+                            rvCheckBoxList[pos]= adp
+
+                            if(data.answerChoice != null && data.answerByReader!!.isEmpty())
+                                for(i in data.answerChoice!!.indices)
+                                    data.answerByReader!!.add("")
+                            else if(data.answerByReader!!.isNotEmpty()){
+                                for(perData in data.answerByReader!!)
+                                    if(perData.isNotBlank())
+                                        adp.cbCheckedList[perData.toInt()]= true
+                            }
                             adp.onCheckedChangeListener= { isChecked, pos ->
                                 data.answerByReader!![pos]=
                                     if(isChecked) pos.toString()
                                     else ""
                             }
-                            rvCheckBoxList[pos]= adp
                         }
                     }
                     Const.QUESTION_KIND_PILGAN -> {
@@ -196,18 +219,20 @@ class ContentAdp(c: Context, data: ArrayList<Content>?)
         //jika pembaca tidak menjawab, maka value dari map memiliki size == 0
         //map [key, value] => [question.id, question.answerByReader]
         val map= HashMap<String, ArrayList<String>>()
-        for(i in questionIndex){
+        for((i, no) in questionIndex){
             val quest= dataList!![i] as ContentQuestion
+            val questId= quest.id
+//            loge("questId= $questId quest.question= ${quest.question}")
             when(quest.answerKind){
                 Const.QUESTION_KIND_PILGAN -> {
                     val answer= ArrayList<String>()
-                    radioSelIndexList[i].asNotNull { str: String -> answer.add(str) }
-                    map[quest.id]= answer
+                    radioSelIndexList[i].notNull { ind -> answer.add(ind.toString()) }
+                    map[questId]= answer
                 }
                 Const.QUESTION_KIND_FILL -> {
                     if(quest.answerByReader!!.first().isBlank())
                         quest.answerByReader!!.clear()
-                    map[quest.id]= quest.answerByReader!!
+                    map[questId]= quest.answerByReader!!
                 }
                 Const.QUESTION_KIND_MULTIPLE -> {
                     val removedInd= ArrayList<Int>()
@@ -215,20 +240,60 @@ class ContentAdp(c: Context, data: ArrayList<Content>?)
                         if(answer.isBlank())
                             removedInd.add(i)
                     }
-                    for(i in removedInd)
-                        quest.answerByReader!!.removeAt(i)
-                    map[quest.id]= quest.answerByReader!!
+                    val newList= ArrayList<String>() //jika pakai quest.answerByReader!!.removeAt(i), maka nti akan ada IndexOutOfBoundError
+                    for((i, answer) in quest.answerByReader!!.withIndex()){
+                        if(removedInd.indexOf(i) < 0)
+                            newList.add(answer)
+                    }
+                    quest.answerByReader= newList
+                    map[questId]= quest.answerByReader!!
                 }
             }
         }
         return map
+    }
+    /**
+     * Isi fungsi ini mirip dengan fungsi getAnswerList() karena pada dasarnya,
+     * cara kerjanya sama-sama menggunakan iterasi questionIndex
+     *
+     * @return true jika pertanyaan sudah diisi semua dan sebaliknya.
+     */
+    fun checkAnswer(): Boolean{
+        //jika pembaca tidak menjawab, maka value dari map memiliki size == 0
+        //map [key, value] => [question.id, question.answerByReader]
+        for((i, no) in questionIndex){
+            val quest= dataList!![i] as ContentQuestion
+            when(quest.answerKind){
+                Const.QUESTION_KIND_PILGAN -> {
+                    val isFilled= radioSelIndexList[i]
+                        .notNullTo { true }
+                        .orDefault(false)
+                    if(!isFilled) return false
+                }
+                Const.QUESTION_KIND_FILL -> {
+                    if(quest.answerByReader!!.first().isBlank())
+                        return false
+                }
+                Const.QUESTION_KIND_MULTIPLE -> {
+                    var isAllBlank= true
+                    for(answer in quest.answerByReader!!){
+                        if(answer.isNotBlank()){
+                            isAllBlank= false
+                            break
+                        }
+                    }
+                    if(isAllBlank) return false
+                }
+            }
+        }
+        return true
     }
 
     fun clearAllAnswer(){
         dataList.notNull { list ->
             for((i, data) in list.withIndex())
                 if(data is ContentQuestion){
-                    data.answerByReader= null
+                    data.answerByReader= ArrayList() //Knp gak null? agar tidak terjadi error saat bindVh()
                     radioSelIndexList.removeAt(i)
                 }
         }
@@ -276,7 +341,6 @@ class ContentAdp(c: Context, data: ArrayList<Content>?)
                 data.answerByReader.notNull { arrList ->
                     if(arrList.isEmpty()) arrList.add(ind.toString())
                     else arrList[0]= ind.toString()
-//                    loge("data.answerByReader.size= ${data.answerByReader!!.size} ind= $ind")
                 }
             }
         }

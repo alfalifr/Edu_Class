@@ -38,7 +38,7 @@
             android:padding="10dp"
             app:cardCornerRadius="@dimen/card_radius"
             android:backgroundTint="@color/accentTranser">
-            <EditText
+            <sidev.kuliah.tekber.edu_class.view.EditText_
                 android:id="@+id/et_fill"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

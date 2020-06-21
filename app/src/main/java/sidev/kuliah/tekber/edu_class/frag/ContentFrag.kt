@@ -11,6 +11,7 @@ import sidev.kuliah.tekber.edu_class.intfc.Content
 import sidev.kuliah.tekber.edu_class.model.Page
 import sidev.kuliah.tekber.edu_class.presenter.PageContentPres
 import sidev.kuliah.tekber.edu_class.util.Const
+import sidev.kuliah.tekber.edu_class.util.toSimpleString
 import sidev.lib.android.siframe.intfc.lifecycle.sidebase.TopMiddleBottomBase
 import sidev.lib.android.siframe.intfc.lifecycle.sidebase.ViewPagerActBase
 import sidev.lib.android.siframe.lifecycle.fragment.RvFrag
@@ -61,9 +62,11 @@ class ContentFrag : RvFrag<ContentAdp>(), TopMiddleBottomBase{
             }
             bottomView.ll_forth_container.setOnClickListener {
                 if(pageData.isQuiz && pageData.isQuizStillValid){
-                    showDialogConfirm("Anda akan mengumpulkan kuis untuk dinilai. Lanjut kumpulkan?",
-                        "Kumpulkan")
-                    { dialog, view ->
+                    val mainMsg=
+                        if(rvAdp.checkAnswer()) "Anda akan mengumpulkan kuis untuk dinilai. Lanjut kumpulkan?"
+                        else "Anda beberapa pertanya yg belum terisi. Apakah anda yakin ingin mengumpulkan?"
+
+                    showDialogConfirm(mainMsg, "Kumpulkan") { dialog, view ->
                         dialog.showPb()
                         sendQuizAnswer()
                     }
@@ -84,10 +87,14 @@ class ContentFrag : RvFrag<ContentAdp>(), TopMiddleBottomBase{
                 bottomView.tv_forth.text= "Lanjut Kuis"
                 val tf= bottomView.tv_forth.typeface
                 bottomView.tv_forth.setTypeface(tf, Typeface.BOLD)
-            } else if(pageData.isQuiz){
+            } else if(pageData.isQuiz && pageData.isQuizStillValid){
                 bottomView.tv_forth.text= "Kumpulkan"
                 val tf= bottomView.tv_forth.typeface
                 bottomView.tv_forth.setTypeface(tf, Typeface.BOLD)
+            } else{
+                bottomView.tv_forth.text= "Selanjutnya"
+                val tf= bottomView.tv_forth.typeface
+                bottomView.tv_forth.setTypeface(tf, Typeface.NORMAL)
             }
         }
     }
@@ -110,6 +117,10 @@ class ContentFrag : RvFrag<ContentAdp>(), TopMiddleBottomBase{
             Const.DATA_QUESTION_ANSWER to answerList,
             Const.DATA_PAGE_ID to pageData.id
         )
+        loge("sendQuizAnswer()")
+        var i= -1
+        for((questionId, answer) in answerList)
+            loge("i= ${++i} questionId= $questionId => answer= ${answer.toSimpleString()}")
     }
 
 

@@ -20,7 +20,12 @@ val dumm_content_read= arrayOf(
     ContentRead("2", null, "Lanjutan dari gaya sentripetal"),
     ContentRead("3", "Gaya Listrik", "Ini adalah sebuah gaya alami, bkn gaya2an. (2)"),
     ContentRead("4", "Ekonom Terkini", "Ekonom adalah orang yg memiliki keahlian di bidang ekonomi"),
-    ContentRead("5", "Pandemonium", "Berasal dari kata 'Pandemi', namun kata ini hanya lah fiksi belaka")
+    ContentRead("5", "Pandemonium", "Berasal dari kata 'Pandemi', namun kata ini hanya lah fiksi belaka"),
+    ContentRead("6", null, "Akhir dari kuis. Teliti lagi sebelum mengumpulkan")
+)
+val dumm_content_question2= arrayOf(
+    ContentQuestion("10", "Tuliskan feedback anda ttg kuis ini", Const.QUESTION_KIND_FILL,
+        null, null, null)
 )
 
 val dumm_content_question= arrayOf(
@@ -28,10 +33,20 @@ val dumm_content_question= arrayOf(
         arrayListOf("Gaya saling menarik", "Gaya yg menjauhi titik pusat", "Gaya yg dibuat oleh Alam"), arrayListOf("0"), null),
     ContentQuestion("2", "Siapa bapak koperasi Indonesia?", Const.QUESTION_KIND_PILGAN,
         arrayListOf("Jusuf Kalla", "Soekarno", "Hatta Rajasa", "Tidak ada yg benar"), arrayListOf("3"), null),
-    ContentQuestion("3", "Syarat sebuah negara, kecuali?", Const.QUESTION_KIND_PILGAN,
+    ContentQuestion("3", "Syarat sebuah negara, kecuali?", Const.QUESTION_KIND_MULTIPLE,
         arrayListOf("Punya rakyat", "Punya pemerintahan", "Punya sumber daya", "Diakui yg lain"), arrayListOf("0", "1","3"), null),
     ContentQuestion("4", "Jelaskan scr singkat penyebab terjadinya WW 2!", Const.QUESTION_KIND_FILL,
-        null, null, null)
+        null, null, null),
+    ContentQuestion("5", "Jelaskan scr singkat apa itu evolusi!", Const.QUESTION_KIND_FILL,
+        null, null, null),
+    ContentQuestion("6", "Tuliskan pendapatmu tentang perbedaan teori gravitasi Newton dan Ensten!", Const.QUESTION_KIND_FILL,
+        null, null, null),
+    ContentQuestion("7", "Apa yg kamu ketahui tentang gaya gravitasi?", Const.QUESTION_KIND_FILL,
+        null, null, null),
+    ContentQuestion("8", "Jelaskan scr singkat asal mula munculnya gagasan gaya gravitasi!", Const.QUESTION_KIND_FILL,
+        null, null, null),
+    ContentQuestion("9", "Berikut merupakan gaya...", Const.QUESTION_KIND_MULTIPLE,
+        arrayListOf("Gaya gravitasi", "Gaya pegas", "Gaya tarik", "Gaya magnet", "Gaya kesinambungan", "Gaya sentropegal"), arrayListOf("0", "1","3"), null)
 )
 
 val dumm_content_video= arrayOf(
@@ -47,7 +62,7 @@ val dumm_content_video= arrayOf(
 val dumm_page= arrayOf(
     Page("1", "Pengantar", 1, fkmFrom(dumm_content_read[0])),
     Page("2", "Physic of Gravity", 2, fkmFrom(dumm_content_video[3], dumm_content_read[1], dumm_content_read[2], dumm_content_read[3])),
-    Page("3", "Latihan soal", 3, fkmFrom(*dumm_content_question), true),
+    Page("3", "Latihan soal", 3, fkmFrom(*dumm_content_question, dumm_content_read.last(), *dumm_content_question2), true),
     Page("4", "All is bout change", 2, fkmFrom(dumm_content_video[4], dumm_content_question[3], dumm_content_read[1]))
 )
 
