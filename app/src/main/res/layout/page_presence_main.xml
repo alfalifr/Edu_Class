@@ -41,7 +41,7 @@
                                 android:layout_alignParentRight="true"
                                 android:layout_width="22dp"
                                 android:layout_height="22dp"
-                                android:src="@drawable/ic_profile"
+                                android:src="@drawable/ic_calendar_filled"
                                 android:tint="@color/white"
                                 android:background="@color/colorPrimaryDark"
                                 android:padding="3dp"/>
@@ -82,7 +82,7 @@
                                 android:layout_alignParentRight="true"
                                 android:layout_width="22dp"
                                 android:layout_height="22dp"
-                                android:src="@drawable/ic_profile"
+                                android:src="@drawable/ic_graduate"
                                 android:tint="@color/white"
                                 android:background="@color/colorPrimaryDark"
                                 android:padding="3dp"/>

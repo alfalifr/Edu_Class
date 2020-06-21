@@ -204,6 +204,7 @@ class PresenceDetailFrag : SimpleAbsFrag(){
         layoutView.tv_present_count.text= presenceCls.presentCount.toString()
         layoutView.tv_ijin_count.text= presenceCls.ijinCount.toString()
         layoutView.tv_alpha_count.text= presenceCls.alphaCount.toString()
+        loge("updateHeaderInfo() presentCount= ${presenceCls.presentCount} ijinCount= ${presenceCls.ijinCount}")
     }
 
     override fun onPresenterSucc(reqCode: String, resCode: Int, data: Map<String, Any>?) {
@@ -222,6 +223,8 @@ class PresenceDetailFrag : SimpleAbsFrag(){
                     dialogEnterCode.cancel()
                     presenceBeingChanged?.status= Const.STATUS_PRESENCE_PRESENT
                     presenceAdp.notifyDataSetChanged_()
+                    presenceCls.presentCount++
+                    updateHeaderInfo(presenceCls)
                     toast("Absensi berhasil")
                 } else{
                     toast("Kode yg anda masukan salah")
@@ -250,6 +253,8 @@ class PresenceDetailFrag : SimpleAbsFrag(){
                         presenceBeingChanged?.attachment= attList
                     }
                     presenceAdp.notifyDataSetChanged_()
+                    presenceCls.ijinCount++
+                    updateHeaderInfo(presenceCls)
                     toast("Surat ijin berhasil dikirim")
                 }
             }
