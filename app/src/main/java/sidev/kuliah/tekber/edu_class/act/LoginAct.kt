@@ -68,8 +68,17 @@ class LoginAct : SimpleAbsBarContentNavAct(){
     }
 
     fun checkLogin(){
-        _StorageUtil.SharedPref.getSharedPref(this, Const.KEY_UNAME).notNull { uname ->
-            startAct<StudentMainAct>()
+        _StorageUtil.SharedPref.getSharedPref(this, Const.KEY_PROFILE_ROLE).notNull { role ->
+            when(role.toInt()){
+                Const.ROLE_STUDENT -> {
+                    startAct<StudentMainAct>()
+                    finish()
+                }
+                Const.ROLE_TEACHER -> {
+                    startAct<TeacherMainAct>()
+                    finish()
+                }
+            }
         }.isNull { showPb(false) }
     }
 
@@ -126,10 +135,12 @@ class LoginAct : SimpleAbsBarContentNavAct(){
                             Const.ROLE_STUDENT -> {
                                 startAct<StudentMainAct>()
                                 toast("Anda masuk sebagai Pelajar")
+                                finish()
                             }
                             Const.ROLE_TEACHER -> {
-                                startAct<StudentMainAct>()
+                                startAct<TeacherMainAct>()
                                 toast("Anda masuk sebagai Pengajar")
+                                finish()
                             }
                         }
                     }
