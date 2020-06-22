@@ -12,7 +12,7 @@ import java.io.Serializable
  * @param presenceList berisi fk ke tiap item presensi.
  * @param presentCount berisi jml dari item yg ada pada presenceList yg statusnya == Const.STATUS_PRESENCE_PRESENT.
  * @param ijinCount berisi jml dari item yg ada pada presenceList yg statusnya == Const.STATUS_PRESENCE_IJIN.
- * @param alphaCount berisi jml dari item yg ada pada presenceList yg statusnya selain yg ada di Const.
+ * @param alphaCount berisi jml dari item yg ada pada presenceList yg statusnya == Const.STATUS_PRESENCE_ALPHA.
  */
 data class PresenceClass(private val _id: String,
                          var clazz: FK_M<ClassModel>?,
