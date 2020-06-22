@@ -6,7 +6,9 @@ import sidev.lib.android.siframe.model.PictModel
 import java.io.Serializable
 
 /**
- * @param duration sebaiknya .start dan .end hanya berupa angka.
+ * @param duration sebaiknya .start dan .end hanya berupa angka (int).
+ *      Jika di db duration bisa dipecah jadi duration_start dan duration_end.
+ * @param pageList berisi banyak fk ke model Page.
  */
 data class Module(private val _id: String,
                   var name: String, var desc: String,

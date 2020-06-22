@@ -1,14 +1,16 @@
 package sidev.kuliah.tekber.edu_class.model
 
 import sidev.lib.android.siframe.model.DataWithId
-import java.io.Serializable
 
-data class AnswChoice(private val _id: String, var choice: Array<String>?, var correctChoice: Array<Int>?): DataWithId(_id){
+/**
+ * Gak usah, gak dipake
+ */
+data class __AnswChoice(private val _id: String, var choice: Array<String>?, var correctChoice: Array<Int>?): DataWithId(_id){
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
 
-        other as AnswChoice
+        other as __AnswChoice
 
         if (id != other.id) return false
         if (choice != null) {

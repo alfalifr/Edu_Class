@@ -4,6 +4,9 @@ import sidev.lib.android.siframe.model.DataWithId
 import sidev.lib.android.siframe.model.FK_M
 import java.io.Serializable
 
+/**
+ * Modelnya blum kepake di app.
+ */
 data class Question(private val _id: String,
                 var content: FK_M<ContentQuestion>?,
                 var scoreIfCorrect: Int,

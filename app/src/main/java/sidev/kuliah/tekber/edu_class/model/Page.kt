@@ -5,6 +5,8 @@ import sidev.lib.android.siframe.model.DataWithId
 import sidev.lib.android.siframe.model.FK_M
 
 /**
+ * @param contentList berisi banyak fk ke model Content. Content dapat berupa ContentRead, ContentVideo, ContentQuestion
+ * @param no halaman.
  * @param isQuiz true jika halaman merupakan ujian.
  * @param isQuizStillValid true berarti ujian msh bisa dikerjakan.
  */

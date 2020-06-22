@@ -5,8 +5,14 @@ import sidev.lib.android.siframe.model.FK_M
 import java.io.Serializable
 
 /**
- * @param scheduleList isinya bisa banyak.
- * @param clazz isinya cuma 1.
+ * Model yg merepresentasikan tiap kelas pada menu presensi.
+ *
+ * @param scheduleList jadwal kelas. Misalkan dalam sehari ada 2 pertemuan, scheduleList berisi 2 ScheduleModel.
+ * @param clazz isinya cuma 1 fk ke ClassModel.
+ * @param presenceList berisi fk ke tiap item presensi.
+ * @param presentCount berisi jml dari item yg ada pada presenceList yg statusnya == Const.STATUS_PRESENCE_PRESENT.
+ * @param ijinCount berisi jml dari item yg ada pada presenceList yg statusnya == Const.STATUS_PRESENCE_IJIN.
+ * @param alphaCount berisi jml dari item yg ada pada presenceList yg statusnya selain yg ada di Const.
  */
 data class PresenceClass(private val _id: String,
                          var clazz: FK_M<ClassModel>?,

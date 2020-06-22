@@ -6,6 +6,8 @@ import sidev.lib.android.siframe.model.FK_M
 import java.io.Serializable
 
 /**
+ * @param question pertanyaannya.
+ * @param answerKind jenis pertanyaan (PILGAN, MUTLIPLE, dan ISIAN). Nilai dari int ini ada di kelas Const.QUESTION_KIND_MULTIPLE dkk.
  * @param answerChoice jika answerKind selain PILGAN atau MULTIPLE, maka answerChoice null.
  * @param answerByTeacher jika answerKind merupakan PILGAN atau MULTIPLE, maka answerByReader berisi Int yg merepresentasikan index jwb.
  * @param answerByReader jika answerKind merupakan PILGAN atau MULTIPLE, maka answerByReader berisi Int yg merepresentasikan index jwb.
