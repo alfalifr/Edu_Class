@@ -43,7 +43,11 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-    implementation 'com.github.alfalifr:JVM_Lib:4fe83a8525'
+    implementation 'com.github.alfalifr:JVM_Lib:4ae4c5f57d'
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'com.google.android.material:material:1.0.0'
+
+    //Untuk nertwok
+    implementation 'com.android.volley:volley:1.1.1'
+    implementation 'com.loopj.android:android-async-http:1.4.9'
 }

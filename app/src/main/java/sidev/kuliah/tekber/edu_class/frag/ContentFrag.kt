@@ -66,16 +66,20 @@ class ContentFrag : RvFrag<ContentAdp>(), TopMiddleBottomBase{
                         if(rvAdp.checkAnswer()) "Anda akan mengumpulkan kuis untuk dinilai. Lanjut kumpulkan?"
                         else "Anda beberapa pertanya yg belum terisi. Apakah anda yakin ingin mengumpulkan?"
 
-                    showDialogConfirm(mainMsg, "Kumpulkan") { dialog, view ->
-                        dialog.showPb()
-                        sendQuizAnswer()
+                    showDialogConfirm(mainMsg, "Kumpulkan") { dialog, isCancelled ->
+                        if(!isCancelled){
+                            dialog.showPb()
+                            sendQuizAnswer()
+                        } else
+                            dialog.cancel()
                     }
                 } else{
                     if(isNextPageQuiz && isNextPageQuizStillValid){
                         showDialogConfirm("Anda akan memulai kuis. Lanjut mengerjakan kuis?",
                         "Lanjut")
-                        { dialog, view ->
-                            act.pageForth()
+                        { dialog, isCancelled ->
+                            if(!isCancelled)
+                                act.pageForth()
                             dialog.cancel()
                         }
                     } else {

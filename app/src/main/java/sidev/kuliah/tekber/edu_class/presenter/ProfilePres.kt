@@ -1,9 +1,12 @@
 package sidev.kuliah.tekber.edu_class.presenter
 
+import org.json.JSONArray
 import sidev.kuliah.tekber.edu_class._cob.dumm_profile
+import sidev.kuliah.tekber.edu_class.model.Profil
 import sidev.kuliah.tekber.edu_class.util.Const
 import sidev.lib.android.siframe.presenter.Presenter
 import sidev.lib.android.siframe.presenter.PresenterCallback
+import sidev.lib.android.siframe.tool.util._NetworkUtil
 import sidev.lib.android.siframe.tool.util._StorageUtil
 import sidev.lib.universal.`fun`.iff
 import sidev.lib.universal.`fun`.isNull
@@ -32,6 +35,31 @@ class ProfilePres(callback: PresenterCallback) : Presenter(callback){
     }
 
     fun getProfile(uname: String){
+        _NetworkUtil.Loopj.get(ctx!!, Const.URL_PROFILE, null){ code, response ->
+            if(response != null){
+                val jsonArray= JSONArray(response)
+                var isProfileFound= false
+                for(i in 0 until jsonArray.length()){
+                    val jObj= jsonArray.getJSONObject(i)
+                    val jUname= jObj.getString("uname")
+                    if(uname == jUname){
+                        val id= jObj.getString("id")
+                        val role= jObj.getString("role")
+                        val name= jObj.getString("name")
+                        val nrp= jObj.getString("nrp")
+                        val email= jObj.getString("email")
+
+                        val profile= Profil(id, role.toInt(), uname, name, nrp, email)
+                        val data= mapOf(Const.DATA_PROFILE to profile)
+                        postSucc(Const.RES_OK, data)
+                        isProfileFound= true
+                    }
+                }
+                if(!isProfileFound)
+                    postSucc(Const.RES_NOT_OK, null)
+            }
+        }
+/*
         ThreadUtil.delayRun(2000){
             dumm_profile.toList().search { prof -> prof.uname == uname }
                 .notNull { prof ->
@@ -41,5 +69,6 @@ class ProfilePres(callback: PresenterCallback) : Presenter(callback){
                     postSucc(Const.RES_NOT_OK, null)
                 }
         }
+ */
     }
 }

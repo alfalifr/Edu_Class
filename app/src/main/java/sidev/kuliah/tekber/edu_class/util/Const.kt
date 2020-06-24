@@ -3,6 +3,9 @@ package sidev.kuliah.tekber.edu_class.util
 import android.app.Activity
 
 object Const {
+    val URL_ROOT= "https://tekber-app.herokuapp.com/api"
+    val URL_PROFILE= "$URL_ROOT/profil"
+
     val KEY_UNAME= "uname"
     val KEY_PROFILE_ROLE= "profile_role"
 

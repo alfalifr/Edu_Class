@@ -16,7 +16,7 @@ import sidev.kuliah.tekber.edu_class.model.Page
 import sidev.kuliah.tekber.edu_class.presenter.PageContentPres
 import sidev.kuliah.tekber.edu_class.util.Const
 import sidev.lib.android.siframe.customizable._init._Config
-import sidev.lib.android.siframe.customizable.view.ModableVp
+import sidev.lib.android.siframe.customizable.view.ModVp
 import sidev.lib.android.siframe.intfc.lifecycle.sidebase.DrawerActBase
 import sidev.lib.android.siframe.lifecycle.activity.DrawerBarContentNavAct_ViewPager
 import sidev.lib.android.siframe.presenter.Presenter
@@ -106,7 +106,7 @@ class ContentAct : DrawerBarContentNavAct_ViewPager<ContentFrag>(){
     }
 
     override fun _initView(layoutView: View) {
-        vp.asNotNull { modVp: ModableVp ->
+        vp.asNotNull { modVp: ModVp ->
             modVp.isTouchable= false
             modVp.isTouchInterceptable= false
             loge("vp is ModableVp")
