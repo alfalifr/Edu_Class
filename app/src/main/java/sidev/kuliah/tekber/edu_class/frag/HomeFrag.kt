@@ -57,6 +57,9 @@ class HomeFrag : SimpleActBarFrag(){
                 sendRequest(Const.REQ_LOGOUT)
             }
         }
+        actBarView.findViewById<ImageView>(R.id.iv_back).notNull { iv ->
+            actSimple?.registerBackBtnView(iv)
+        }
         loge("_initActBar()")
     }
 

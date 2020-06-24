@@ -11,6 +11,8 @@ import sidev.lib.android.siframe.lifecycle.fragment.SimpleAbsFrag
 
 class StudentMainAct : SimpleAbsBarContentNavAct_ViewPager<SimpleAbsFrag>() {
     override var isVpTitleFragBased: Boolean= true
+    override var isVpBackOnBackPressed: Boolean= false
+
     override var menuId: Int? = R.menu.main_student
     override val isNavBarVisible: Boolean
         get() = true
