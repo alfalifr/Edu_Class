@@ -36,7 +36,7 @@ class ContentFrag : RvFrag<ContentAdp>(), TopMiddleBottomBase{
     var isNextPageQuiz= false
     var isNextPageQuizStillValid= true
     var dialogWarning: ContentWarningDialog?= null
-    var canBack= true
+//    var canBack= true
 
 
     override fun _initMiddleView(middleView: View) {}
@@ -110,10 +110,16 @@ class ContentFrag : RvFrag<ContentAdp>(), TopMiddleBottomBase{
         onRefreshListener= { downloadContent(pageData.id) }
         downloadContent(pageData.id)
         actSimple?.addOnBackBtnListener {
-            val canBack= pageData.isQuiz && pageData.isQuizStillValid
-            if(canBack)
-                toast("Anda masih mengerjakan kuis")
-            canBack
+            actSimple.asNotNullTo { act: ViewPagerActBase<SimpleAbsFrag> ->
+                val fragInd= act.getFragPos(this)
+                if(fragInd == act.vp.currentItem){
+                    val canNotBack= pageData.isQuiz && pageData.isQuizStillValid
+                    if(canNotBack)
+                        toast("Anda masih mengerjakan kuis")
+                    canNotBack
+                } else
+                    false
+            } ?: false
         }
 //        downloadPageList()
     }
