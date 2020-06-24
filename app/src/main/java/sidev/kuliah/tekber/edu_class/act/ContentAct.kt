@@ -94,10 +94,20 @@ class ContentAct : DrawerBarContentNavAct_ViewPager<ContentFrag>(){
 
         sideNavAdp= PageNavAdp(this, null)
         sideNavAdp.setOnItemClickListener { v, pos, data ->
-            selectedPageId= data.id
-            vp.currentItem= pos
-            sideNavAdp.selectedPageInd= pos
-//            downloadContent(pageId)
+            val isNextPageQuiz= data.isQuiz
+            val isNextPageQuizStilValid= data.isQuizStillValid
+            loge("pos= $pos isNextPageQuiz= $isNextPageQuiz isNextPageQuizStilValid= $isNextPageQuizStilValid")
+            if(isNextPageQuiz && isNextPageQuizStilValid){
+                vpFragList[vp.currentItem].
+                showDialogConfirm("Halaman yang Anda tujuh adalah halaman kuis.\nApakah Anda ingin lanjut mengerjakan kuis?",
+                    "Lanjut")
+                { dialog, isCancelled ->
+                    if(!isCancelled)
+                        toPage(pos)
+                    dialog.cancel()
+                }
+            } else
+                toPage(pos)
         }
 
         _ViewUtil.Comp.getTv?.invoke(startDrawerView).notNull { tv -> tv.text= module.name }
@@ -175,6 +185,12 @@ class ContentAct : DrawerBarContentNavAct_ViewPager<ContentFrag>(){
         }
         startDrawerContainer.findViewById<View>(R.id.rv)?.visibility= if(!show) View.VISIBLE
         else View.GONE
+    }
+
+    fun toPage(pos: Int){
+        selectedPageId= sideNavAdp.dataList!![pos].id
+        vp.currentItem= pos
+        sideNavAdp.selectedPageInd= pos
     }
 
     override fun onPresenterSucc(reqCode: String, resCode: Int, data: Map<String, Any>?) {

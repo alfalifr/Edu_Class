@@ -2,6 +2,7 @@ package sidev.kuliah.tekber.edu_class.frag
 
 import android.graphics.Typeface
 import android.view.View
+import android.view.ViewGroup
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import kotlinx.android.synthetic.main.comp_nav_forth_back.view.*
 import sidev.kuliah.tekber.edu_class.R
@@ -35,6 +36,7 @@ class ContentFrag : RvFrag<ContentAdp>(), TopMiddleBottomBase{
     var isNextPageQuiz= false
     var isNextPageQuizStillValid= true
     var dialogWarning: ContentWarningDialog?= null
+    var canBack= true
 
 
     override fun _initMiddleView(middleView: View) {}
@@ -56,7 +58,7 @@ class ContentFrag : RvFrag<ContentAdp>(), TopMiddleBottomBase{
             loge("_initBottomView() act: ViewPagerActBase<*>")
             bottomView.ll_back_container.setOnClickListener {
                 if(pageData.isQuiz && pageData.isQuizStillValid)
-                    toast("Anda masih mengerjakan kuis. Harap kumpulkan terlebih dahulu.")
+                    toast("Anda masih mengerjakan kuis.\nHarap kumpulkan terlebih dahulu.")
                 else
                     act.pageBackward()
             }
@@ -107,6 +109,12 @@ class ContentFrag : RvFrag<ContentAdp>(), TopMiddleBottomBase{
         __initTopMiddleBottomView(layoutView)
         onRefreshListener= { downloadContent(pageData.id) }
         downloadContent(pageData.id)
+        actSimple?.addOnBackBtnListener {
+            val canBack= pageData.isQuiz && pageData.isQuizStillValid
+            if(canBack)
+                toast("Anda masih mengerjakan kuis")
+            canBack
+        }
 //        downloadPageList()
     }
 
@@ -134,6 +142,10 @@ class ContentFrag : RvFrag<ContentAdp>(), TopMiddleBottomBase{
         layoutView.findViewById<View>(R.id.rv)?.visibility= if(!show) View.VISIBLE
         else View.GONE
         layoutView.findViewById<SwipeRefreshLayout>(R.id.srl)?.isRefreshing= show
+        bottomContainer.asNotNull { vg: ViewGroup ->
+            vg.getChildAt(0).visibility= if(show) View.GONE
+                else View.VISIBLE
+        }
     }
 
     fun showDialogConfirm(mainMsg: String, rightBtnMsg: String,
