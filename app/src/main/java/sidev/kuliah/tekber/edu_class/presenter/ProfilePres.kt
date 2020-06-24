@@ -28,9 +28,10 @@ class ProfilePres(callback: PresenterCallback) : Presenter(callback){
     override fun processRequest(reqCode: String, data: Map<String, Any>?) {
         when(reqCode){
             Const.REQ_GET_PROFILE -> {
-                val uname= _StorageUtil.SharedPref.getSharedPref(ctx!!, Const.KEY_UNAME)!!
+                val uname= _StorageUtil.SharedPref.get(ctx!!, Const.KEY_UNAME)!!
                 getProfile(uname)
             }
+            Const.REQ_LOGOUT -> logout()
         }
     }
 
@@ -70,5 +71,12 @@ class ProfilePres(callback: PresenterCallback) : Presenter(callback){
                 }
         }
  */
+    }
+
+    fun logout(){
+        ThreadUtil.delayRun(1500){
+            _StorageUtil.SharedPref.clear(ctx!!)
+            postSucc(Const.RES_OK, null)
+        }
     }
 }

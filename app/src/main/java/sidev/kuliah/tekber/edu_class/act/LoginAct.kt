@@ -1,6 +1,9 @@
 package sidev.kuliah.tekber.edu_class.act
 
+import android.util.Log
+import android.view.KeyEvent
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.page_login.view.*
@@ -11,6 +14,7 @@ import sidev.lib.android.siframe.lifecycle.activity.SimpleAbsBarContentNavAct
 import sidev.lib.android.siframe.presenter.Presenter
 import sidev.lib.android.siframe.tool.util._StorageUtil
 import sidev.lib.android.siframe.tool.util._ViewUtil
+import sidev.lib.android.siframe.tool.util._ViewUtil.Comp.getEt
 import sidev.lib.android.siframe.tool.util._ViewUtil.Comp.getEtTxt
 import sidev.lib.android.siframe.tool.util._ViewUtil.Comp.getTvNote
 import sidev.lib.android.siframe.tool.util._ViewUtil.Comp.initPasswordField
@@ -47,6 +51,19 @@ class LoginAct : SimpleAbsBarContentNavAct(){
         setEtHint(layoutView.comp_uname, "Masukan username")
         setEtHint(layoutView.comp_pswd, "Masukan password")
 
+        getEt?.invoke(layoutView.comp_uname).notNull { et -> et.isSingleLine= true }
+        getEt?.invoke(layoutView.comp_pswd).notNull { et ->
+            et.isSingleLine= true
+            et.setOnEditorActionListener { v, actionId, event ->
+                if ((event != null && (event.keyCode == KeyEvent.KEYCODE_ENTER))
+                    || actionId == EditorInfo.IME_ACTION_DONE) {
+                    login()
+                    true
+                } else
+                    false
+            }
+        }
+
         initPasswordField(layoutView.comp_pswd)
 /*
         showPassword(layoutView.comp_pswd, false)
@@ -60,15 +77,14 @@ class LoginAct : SimpleAbsBarContentNavAct(){
  */
 
         (layoutView.comp_btn_login as Button).text= "Login"
-        layoutView.comp_btn_login.setOnClickListener {
-            sendReq()
-        }
+        layoutView.comp_btn_login.setOnClickListener { login() }
+
         showPb()
         checkLogin()
     }
 
     fun checkLogin(){
-        _StorageUtil.SharedPref.getSharedPref(this, Const.KEY_PROFILE_ROLE).notNull { role ->
+        _StorageUtil.SharedPref.get(this, Const.KEY_PROFILE_ROLE).notNull { role ->
             when(role.toInt()){
                 Const.ROLE_STUDENT -> {
                     startAct<StudentMainAct>()
@@ -100,7 +116,7 @@ class LoginAct : SimpleAbsBarContentNavAct(){
         getTvNote?.invoke(layoutView.comp_pswd).notNull { et -> et.visibility= View.GONE }
     }
 
-    fun sendReq(){
+    fun login(){
         uname= getEtTxt(layoutView.comp_uname)!!
         pswd= getEtTxt(layoutView.comp_pswd)!!
 
@@ -129,8 +145,8 @@ class LoginAct : SimpleAbsBarContentNavAct(){
                 when(resCode){
                     Const.RES_OK -> {
                         val role= data!![Const.DATA_PROFILE_ROLE] as Int
-                        _StorageUtil.SharedPref.setSharedPref(this, Const.KEY_UNAME, uname)
-                        _StorageUtil.SharedPref.setSharedPref(this, Const.KEY_PROFILE_ROLE, role.toString())
+                        _StorageUtil.SharedPref.set(this, Const.KEY_UNAME, uname)
+                        _StorageUtil.SharedPref.set(this, Const.KEY_PROFILE_ROLE, role.toString())
                         when(role){
                             Const.ROLE_STUDENT -> {
                                 startAct<StudentMainAct>()

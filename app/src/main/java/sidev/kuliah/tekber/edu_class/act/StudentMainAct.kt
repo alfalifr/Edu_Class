@@ -25,11 +25,12 @@ class StudentMainAct : SimpleAbsBarContentNavAct_ViewPager<SimpleAbsFrag>() {
         arrayOf(0)
 
 
-    override fun _initActBar(actBarView: View) {}
+    override fun _initView(layoutView: View) {}
 
+    override fun _initActBar(actBarView: View) {
+        isActBarViewFromFragment= true
+    }
     override fun _initNavBar(navBarView: com.google.android.material.bottomnavigation.BottomNavigationView) {
         setupVpWithNavBar(navBarView)
     }
-
-    override fun _initView(layoutView: View) {}
 }

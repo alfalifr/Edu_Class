@@ -1,10 +1,14 @@
 package sidev.kuliah.tekber.edu_class.util
 
+import android.content.res.Resources
 import android.util.SparseArray
 import android.util.SparseIntArray
+import android.view.View
+import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.RadioGroup
+import androidx.fragment.app.Fragment
 import sidev.lib.android.siframe.model.DataWithId
 import sidev.lib.android.siframe.model.FK_M
 import sidev.lib.android.siframe.tool.util.`fun`.loge
@@ -95,3 +99,10 @@ inline fun <reified TO: DataWithId> fkmFrom(vararg model: TO): FK_M<TO>{
     return FK_M(idArray, objArray)
 }
  */
+
+
+
+fun Fragment.inflate(layoutId: Int, vg: ViewGroup?= null, attachToRoot: Boolean= false): View? {
+    return try{ this.layoutInflater.inflate(layoutId, vg, attachToRoot) }
+    catch (e: Resources.NotFoundException){ null }
+}

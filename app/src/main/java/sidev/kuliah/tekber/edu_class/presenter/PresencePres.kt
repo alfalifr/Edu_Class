@@ -35,20 +35,20 @@ class PresencePres(c: PresenterCallback) : Presenter(c){
             Const.REQ_SEND_PRESENCE_CODE -> {
                 val presenceId= data!![Const.DATA_PRESENCE_ID] as String
                 val presenceCode= data!![Const.DATA_PRESENCE_CODE] as String
-                val uname= _StorageUtil.SharedPref.getSharedPref(ctx!!, Const.DATA_UNAME)!!
+                val uname= _StorageUtil.SharedPref.get(ctx!!, Const.DATA_UNAME)!!
                 savePresenceCode(uname, presenceId, presenceCode)
             }
             Const.REQ_SEND_PRESENCE_NEWS -> {
                 val presenceId= data!![Const.DATA_PRESENCE_ID] as String
                 val presenceNews= data!![Const.DATA_PRESENCE_NEWS] as String
-                val uname= _StorageUtil.SharedPref.getSharedPref(ctx!!, Const.DATA_UNAME)!!
+                val uname= _StorageUtil.SharedPref.get(ctx!!, Const.DATA_UNAME)!!
                 savePresenceNews(uname, presenceId, presenceNews)
             }
             Const.REQ_SEND_PRESENCE_IJIN -> {
                 val presenceId= data!![Const.DATA_PRESENCE_ID] as String
                 val reason= data!![Const.DATA_PRESENCE_IJIN_REASON] as String
                 val file= data!![Const.DATA_PRESENCE_IJIN_FILE] as File
-                val uname= _StorageUtil.SharedPref.getSharedPref(ctx!!, Const.DATA_UNAME)!!
+                val uname= _StorageUtil.SharedPref.get(ctx!!, Const.DATA_UNAME)!!
                 savePresenceIjin(uname, presenceId, reason, file)
             }
 //            Const.REQ_GET_PRESENCE_TIME_NOW -> getTimeNow()

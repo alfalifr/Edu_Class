@@ -20,8 +20,19 @@
             android:textStyle="bold"
             android:textColor="@color/colorAccent"/>
 
+        <ImageView
+            android:id="@+id/iv_drop_down"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_arrow"
+            android:tint="@color/colorAccent"/>
+
         <View
             android:layout_toRightOf="@id/tv"
+            android:layout_toLeftOf="@id/iv_drop_down"
+            android:layout_marginRight="10dp"
             android:layout_centerVertical="true"
             android:layout_width="match_parent"
             android:layout_height="3dp"

@@ -35,7 +35,7 @@ class PageContentPres(c: PresenterCallback) : Presenter(c){
             Const.REQ_SEND_QUESTION_ANSWER -> {
                 val answerList= data!![Const.DATA_QUESTION_ANSWER] as Map<String, List<String>>
                 val pageId= data[Const.DATA_PAGE_ID] as String
-                val uname= _StorageUtil.SharedPref.getSharedPref(ctx!!, Const.KEY_UNAME)!!
+                val uname= _StorageUtil.SharedPref.get(ctx!!, Const.KEY_UNAME)!!
                 sendQuestionAnswer(uname, pageId, answerList)
             }
         }

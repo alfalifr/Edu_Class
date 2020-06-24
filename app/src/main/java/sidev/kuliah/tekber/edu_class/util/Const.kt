@@ -17,6 +17,7 @@ object Const {
     val FORMAT_TIMESTAMP= "$FORMAT_DATE $FORMAT_TIME"
 
     val REQ_LOGIN= "login"
+    val REQ_LOGOUT= "logout"
     val REQ_GET_PROFILE= "get_profile"
     val REQ_GET_CLASS_SEMESTER= "get_class_smt"
     val REQ_GET_MODULE= "get_module"
